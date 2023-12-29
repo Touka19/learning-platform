@@ -15,7 +15,6 @@ model Course {
   title String @db.Text
   description String? @db.Text
   imageUrl String? @db.Text
-  price Float?
   isPublished Boolean @default(false)
 
   categoryId String?
@@ -23,7 +22,7 @@ model Course {
 
   chapters Chapter[]
   attachments Attachment[]
-  purchases Purchase[]
+  enrollments Enrollment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -99,7 +98,7 @@ model UserProgress {
   @@unique([userId, chapterId])
 }
 
-model Purchase {
+model Enrollment {
   id String @id @default(uuid())
   userId String
 
@@ -111,13 +110,4 @@ model Purchase {
 
   @@unique([userId, courseId])
   @@index([courseId])
-}
-
-model StripeCustomer {
-  id String @id @default(uuid())
-  userId String @unique
-  stripeCustomerId String @unique
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 }

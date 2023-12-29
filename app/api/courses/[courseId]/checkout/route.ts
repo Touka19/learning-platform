@@ -25,7 +25,7 @@ export async function POST(
       return new NextResponse("Not found", { status: 404 });
     }
 
-    const existing_enrollment = await db.purchase.findUnique({
+    const existing_enrollment = await db.enrollment.findUnique({
       where: {
         userId_courseId: {
           userId: user.id,
@@ -38,7 +38,7 @@ export async function POST(
       return new NextResponse("Already enrolled", { status: 400 });
     }
 
-    const new_enrollment = await db.purchase.create({
+    const new_enrollment = await db.enrollment.create({
       data: {
         courseId: params.courseId,
         userId: user.id,
