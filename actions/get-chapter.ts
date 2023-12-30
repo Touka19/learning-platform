@@ -5,7 +5,7 @@ interface GetChapterProps {
   userId: string;
   courseId: string;
   chapterId: string;
-};
+}
 
 export const getChapter = async ({
   userId,
@@ -13,13 +13,13 @@ export const getChapter = async ({
   chapterId,
 }: GetChapterProps) => {
   try {
-    const purchase = await db.purchase.findUnique({
+    const enrollment = await db.enrollment.findUnique({
       where: {
         userId_courseId: {
           userId,
           courseId,
-        }
-      }
+        },
+      },
     });
 
     const course = await db.course.findUnique({
@@ -28,15 +28,15 @@ export const getChapter = async ({
         id: courseId,
       },
       select: {
-        price: true,
-      }
+        enrollments: true,
+      },
     });
 
     const chapter = await db.chapter.findUnique({
       where: {
         id: chapterId,
         isPublished: true,
-      }
+      },
     });
 
     if (!chapter || !course) {
@@ -47,19 +47,19 @@ export const getChapter = async ({
     let attachments: Attachment[] = [];
     let nextChapter: Chapter | null = null;
 
-    if (purchase) {
+    if (enrollment) {
       attachments = await db.attachment.findMany({
         where: {
-          courseId: courseId
-        }
+          courseId: courseId,
+        },
       });
     }
 
-    if (chapter.isFree || purchase) {
+    if (chapter.isFree || enrollment) {
       muxData = await db.muxData.findUnique({
         where: {
           chapterId: chapterId,
-        }
+        },
       });
 
       nextChapter = await db.chapter.findFirst({
@@ -68,11 +68,11 @@ export const getChapter = async ({
           isPublished: true,
           position: {
             gt: chapter?.position,
-          }
+          },
         },
         orderBy: {
           position: "asc",
-        }
+        },
       });
     }
 
@@ -81,8 +81,8 @@ export const getChapter = async ({
         userId_chapterId: {
           userId,
           chapterId,
-        }
-      }
+        },
+      },
     });
 
     return {
@@ -92,7 +92,7 @@ export const getChapter = async ({
       attachments,
       nextChapter,
       userProgress,
-      purchase,
+      enrollment,
     };
   } catch (error) {
     console.log("[GET_CHAPTER]", error);
@@ -103,7 +103,7 @@ export const getChapter = async ({
       attachments: [],
       nextChapter: null,
       userProgress: null,
-      purchase: null,
-    }
+      enrollment: null,
+    };
   }
-}
+};
