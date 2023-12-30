@@ -28,15 +28,15 @@ export const ConfirmModal = ({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+          <AlertDialogTitle>Ви впевнені?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone.
+            Ця дія не може бути скасована у майбутньому.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>Відмінити</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>
-            Continue
+            Продовжити
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

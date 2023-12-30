@@ -67,9 +67,9 @@ export const ChaptersList = ({
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {chapters.map((chapter, index) => (
-              <Draggable 
-                key={chapter.id} 
-                draggableId={chapter.id} 
+              <Draggable
+                key={chapter.id}
+                draggableId={chapter.id}
                 index={index}
               >
                 {(provided) => (
@@ -96,7 +96,7 @@ export const ChaptersList = ({
                     <div className="ml-auto pr-2 flex items-center gap-x-2">
                       {chapter.isFree && (
                         <Badge>
-                          Free
+                          Безкоштовний
                         </Badge>
                       )}
                       <Badge
@@ -105,7 +105,7 @@ export const ChaptersList = ({
                           chapter.isPublished && "bg-sky-700"
                         )}
                       >
-                        {chapter.isPublished ? "Published" : "Draft"}
+                        {chapter.isPublished ? "Опубліковано" : "В очікувані"}
                       </Badge>
                       <Pencil
                         onClick={() => onEdit(chapter.id)}

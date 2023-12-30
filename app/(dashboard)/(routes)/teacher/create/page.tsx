@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   title: z.string().min(1, {
-    message: "Title is required",
+    message: "Назва є обов'язковим полем",
   }),
 });
 
@@ -41,20 +41,20 @@ const CreatePage = () => {
     try {
       const response = await axios.post("/api/courses", values);
       router.push(`/teacher/courses/${response.data.id}`);
-      toast.success("Course created");
+      toast.success("Курс створено!");
     } catch {
-      toast.error("Something went wrong");
+      toast.error("Ой!😯 Щось пішло не так");
     }
   }
 
-  return ( 
+  return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
         <h1 className="text-2xl">
-          Name your course
+          Назвіть ваш курс
         </h1>
         <p className="text-sm text-slate-600">
-          What would you like to name your course? Don&apos;t worry, you can change this later.
+          Як би ви хотіли назвати ваш курс? Не хвилюйтесь, ви можете звінити це в майбутньому.
         </p>
         <Form {...form}>
           <form
@@ -67,17 +67,17 @@ const CreatePage = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Course title
+                    Назва курсу
                   </FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="e.g. 'Advanced web development'"
+                      placeholder="приклад: Професійна Веб розробка"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    What will you teach in this course?
+                    Чому ви будете навчати в цьому курсі?
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -89,14 +89,14 @@ const CreatePage = () => {
                   type="button"
                   variant="ghost"
                 >
-                  Cancel
+                  Відмінити
                 </Button>
               </Link>
               <Button
                 type="submit"
                 disabled={!isValid || isSubmitting}
               >
-                Continue
+                Продовжити
               </Button>
             </div>
           </form>
@@ -105,5 +105,5 @@ const CreatePage = () => {
     </div>
    );
 }
- 
+
 export default CreatePage;
