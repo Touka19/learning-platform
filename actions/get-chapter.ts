@@ -40,7 +40,7 @@ export const getChapter = async ({
     });
 
     if (!chapter || !course) {
-      throw new Error("Chapter or course not found");
+      throw new Error("Розділ або курс не знайдено");
     }
 
     let muxData = null;
