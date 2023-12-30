@@ -20,6 +20,7 @@ model Course {
   categoryId String?
   category Category? @relation(fields: [categoryId], references: [id])
 
+  tests Test[]
   chapters Chapter[]
   attachments Attachment[]
   enrollments Enrollment[]
@@ -110,4 +111,32 @@ model Enrollment {
 
   @@unique([userId, courseId])
   @@index([courseId])
+}
+
+model Test {
+  id String @id @default(uuid())
+  title String
+  position Int
+  isPublished Boolean @default(false)
+  
+  courseId String
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  variants Variant[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model Variant {
+  id String @id @default(uuid())
+  title String
+  isCorrect Boolean @default(false)
+
+  testId String
+  test Test @relation(fields: [testId], references: [id], onDelete: Cascade)
+
+  @@index([testId])
 }
