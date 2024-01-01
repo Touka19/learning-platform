@@ -50,7 +50,7 @@ export const AttachmentForm = ({
       toast.success("Вложеня видалено");
       router.refresh();
     } catch {
-      toast.error("😅 Щось пішло не так");
+      toast.error("Упс! Щось пішло не так");
     } finally {
       setDeletingId(null);
     }

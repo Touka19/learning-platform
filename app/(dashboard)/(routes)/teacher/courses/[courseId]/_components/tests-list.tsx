@@ -57,8 +57,6 @@ export const TestsList = ({ items, onReorder, onEdit }: TestsListProps) => {
     return null;
   }
 
-  console.log("tests", tests);
-
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="tests">

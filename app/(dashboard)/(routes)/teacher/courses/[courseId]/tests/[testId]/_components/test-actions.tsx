@@ -1,24 +1,28 @@
 "use client";
 
 import axios from "axios";
-import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ConfirmModal } from "@/components/modals/confirm-modal";
-import { useConfettiStore } from "@/hooks/use-confetti-store";
 
-interface ActionsProps {
+interface TestActionsProps {
   disabled: boolean;
   courseId: string;
+  testId: string;
   isPublished: boolean;
 }
 
-export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
+export const TestActions = ({
+  disabled,
+  courseId,
+  testId,
+  isPublished,
+}: TestActionsProps) => {
   const router = useRouter();
-  const confetti = useConfettiStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const onClick = async () => {
@@ -26,17 +30,16 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
       setIsLoading(true);
 
       if (isPublished) {
-        await axios.patch(`/api/courses/${courseId}/unpublish`);
-        toast.success("Курс деактивовано");
+        await axios.patch(`/api/courses/${courseId}/tests/${testId}/unpublish`);
+        toast.success("Розділ деактивовано");
       } else {
-        await axios.patch(`/api/courses/${courseId}/publish`);
-        toast.success("Курс опубліковано");
-        confetti.onOpen();
+        await axios.patch(`/api/courses/${courseId}/tests/${testId}/publish`);
+        toast.success("Розділ опубліковано");
       }
 
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не за планом");
+      toast.error("Упс! Щось пішло не так");
     } finally {
       setIsLoading(false);
     }
@@ -45,14 +48,12 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
   const onDelete = async () => {
     try {
       setIsLoading(true);
-
-      await axios.delete(`/api/courses/${courseId}`);
-
-      toast.success("Курс видалено");
+      await axios.delete(`/api/courses/${courseId}/tests/${testId}`);
+      toast.success("Тест видалено");
       router.refresh();
-      router.push(`/teacher/courses`);
+      router.push(`/teacher/courses/${courseId}`);
     } catch {
-      toast.error("Ой! Не вдалось видалити курс");
+      toast.error("Ой! Щось пішло не так");
     } finally {
       setIsLoading(false);
     }

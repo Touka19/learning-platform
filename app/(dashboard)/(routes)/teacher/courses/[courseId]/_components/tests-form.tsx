@@ -58,7 +58,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Упс! Щось пішло не так");
     }
   };
 
