@@ -18,7 +18,8 @@ interface VideoPlayerProps {
   isLocked: boolean;
   completeOnEnd: boolean;
   title: string;
-};
+  showTests: () => void;
+}
 
 export const VideoPlayer = ({
   playbackId,
@@ -28,6 +29,7 @@ export const VideoPlayer = ({
   isLocked,
   completeOnEnd,
   title,
+  showTests,
 }: VideoPlayerProps) => {
   const [isReady, setIsReady] = useState(false);
   const router = useRouter();
@@ -36,25 +38,29 @@ export const VideoPlayer = ({
   const onEnd = async () => {
     try {
       if (completeOnEnd) {
-        await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
-          isCompleted: true,
-        });
+        await axios.put(
+          `/api/courses/${courseId}/chapters/${chapterId}/progress`,
+          {
+            isCompleted: true,
+          }
+        );
 
         if (!nextChapterId) {
           confetti.onOpen();
+          setTimeout(() => showTests(), 3000);
         }
 
         toast.success("Прогрес оновлено");
         router.refresh();
 
         if (nextChapterId) {
-          router.push(`/courses/${courseId}/chapters/${nextChapterId}`)
+          router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
         }
       }
     } catch {
-      toast.error("Халепа!😯 Щось пішло не так");
+      toast.error("Халепа! Щось пішло не так");
     }
-  }
+  };
 
   return (
     <div className="relative aspect-video">
@@ -66,23 +72,21 @@ export const VideoPlayer = ({
       {isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
           <Lock className="h-8 w-8" />
-          <p className="text-sm">
-            Цей розділ не доступний
-          </p>
+          <p className="text-sm">Цей розділ не доступний</p>
         </div>
       )}
       {!isLocked && (
-        <MuxPlayer
-          title={title}
-          className={cn(
-            !isReady && "hidden"
-          )}
-          onCanPlay={() => setIsReady(true)}
-          onEnded={onEnd}
-          autoPlay
-          playbackId={playbackId}
-        />
+        <>
+          <MuxPlayer
+            title={title}
+            className={cn(!isReady && "hidden")}
+            onCanPlay={() => setIsReady(true)}
+            onEnded={onEnd}
+            autoPlay
+            playbackId={playbackId}
+          />
+        </>
       )}
     </div>
-  )
-}
+  );
+};

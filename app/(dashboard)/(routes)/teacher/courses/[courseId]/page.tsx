@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { File, LayoutDashboard, ListChecks } from "lucide-react";
+import { Paperclip, LayoutDashboard, List, ListTodo } from "lucide-react";
 
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/icon-badge";
@@ -12,6 +12,7 @@ import { ImageForm } from "./_components/image-form";
 import { CategoryForm } from "./_components/category-form";
 import { AttachmentForm } from "./_components/attachment-form";
 import { ChaptersForm } from "./_components/chapters-form";
+import { TestsForm } from "./_components/tests-form";
 import { Actions } from "./_components/actions";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
@@ -37,6 +38,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           createdAt: "desc",
         },
       },
+      tests: {
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
     },
   });
 
@@ -56,6 +62,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     course.imageUrl,
     course.categoryId,
     course.chapters.some((chapter) => chapter.isPublished),
+    course.tests.some((test) => test.isPublished),
   ];
 
   const totalFields = requiredFields.length;
@@ -105,17 +112,24 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           <div className="space-y-6">
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={ListChecks} />
+                <IconBadge icon={List} />
                 <h2 className="text-xl">Розділи курсу</h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={File} />
+                <IconBadge icon={Paperclip} />
                 <h2 className="text-xl">Матеріали</h2>
               </div>
               <AttachmentForm initialData={course} courseId={course.id} />
+            </div>
+            <div>
+              <div className="flex items-center gap-x-2">
+                <IconBadge icon={ListTodo} />
+                <h2 className="text-xl">Тестування</h2>
+              </div>
+              <TestsForm initialData={course} courseId={course.id} />
             </div>
           </div>
         </div>

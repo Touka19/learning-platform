@@ -58,7 +58,7 @@ export const DescriptionForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Халепа!😅 Щось пішло не так");
+      toast.error("Халепа! Щось пішло не так");
     }
   }
 

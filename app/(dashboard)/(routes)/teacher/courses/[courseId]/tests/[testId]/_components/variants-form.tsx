@@ -8,11 +8,12 @@ import { Loader2, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Chapter, Course } from "@prisma/client";
+import { Variant } from "@prisma/client";
 
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -20,28 +21,32 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 
-import { ChaptersList } from "./chapters-list";
+import { VariantsList } from "./variants-list";
 
-interface ChaptersFormProps {
-  initialData: Course & { chapters: Chapter[] };
+interface VariantsFormProps {
+  variants: Variant[];
   courseId: string;
-};
+  testId: string;
+}
 
 const formSchema = z.object({
   title: z.string().min(1),
+  isCorrect: z.boolean().default(false),
 });
 
-export const ChaptersForm = ({
-  initialData,
-  courseId
-}: ChaptersFormProps) => {
+export const VariantsForm = ({
+  variants,
+  courseId,
+  testId,
+}: VariantsFormProps) => {
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const toggleCreating = () => {
     setIsCreating((current) => !current);
-  }
+  };
 
   const router = useRouter();
 
@@ -49,6 +54,7 @@ export const ChaptersForm = ({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
+      isCorrect: false,
     },
   });
 
@@ -56,34 +62,34 @@ export const ChaptersForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(`/api/courses/${courseId}/chapters`, values);
-      toast.success("Розділ створено");
+      await axios.post(
+        `/api/courses/${courseId}/tests/${testId}/variants`,
+        values
+      );
+      toast.success("Відповідь створено");
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Халепа! Щось пішло не так");
     }
-  }
+  };
 
-  const onReorder = async (updateData: { id: string; position: number }[]) => {
+  const onDelete = async (variantId: string) => {
     try {
       setIsUpdating(true);
 
-      await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
-        list: updateData
-      });
-      toast.success("порядок змінено");
+      await axios.delete(
+        `/api/courses/${courseId}/tests/${testId}/variants/${variantId}`
+      );
+
+      toast.success("Відповідь видалено");
       router.refresh();
     } catch {
       toast.error("Ой! Щось пішло не так");
     } finally {
       setIsUpdating(false);
     }
-  }
-
-  const onEdit = (id: string) => {
-    router.push(`/teacher/courses/${courseId}/chapters/${id}`);
-  }
+  };
 
   return (
     <div className="relative mt-6 border bg-slate-100 rounded-md p-4">
@@ -93,14 +99,14 @@ export const ChaptersForm = ({
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Розділи курсу
+        Відповіді на питання
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
             <>Відмінити</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати розділ
+              Додати відповідь
             </>
           )}
         </Button>
@@ -119,7 +125,7 @@ export const ChaptersForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Сучасна історія"
+                      placeholder="Приклад: 4"
                       {...field}
                     />
                   </FormControl>
@@ -127,33 +133,43 @@ export const ChaptersForm = ({
                 </FormItem>
               )}
             />
-            <Button
-              disabled={!isValid || isSubmitting}
-              type="submit"
-            >
-              Створити
+            <FormField
+              control={form.control}
+              name="isCorrect"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormDescription>
+                      Встановіть галочку якщо бажаєте зробити цю відповідь
+                      правильною
+                    </FormDescription>
+                  </div>
+                </FormItem>
+              )}
+            />
+            <Button disabled={!isValid || isSubmitting} type="submit">
+              Зберегти
             </Button>
           </form>
         </Form>
       )}
       {!isCreating && (
-        <div className={cn(
-          "text-sm mt-2",
-          !initialData.chapters.length && "text-slate-500 italic"
-        )}>
-          {!initialData.chapters.length && "Розділів немає"}
-          <ChaptersList
-            onEdit={onEdit}
-            onReorder={onReorder}
-            items={initialData.chapters || []}
-          />
+        <div
+          className={cn(
+            "text-sm mt-2",
+            !variants.length && "text-slate-500 italic"
+          )}
+        >
+          {!variants.length && "Відповідей немає"}
+          <VariantsList onDelete={onDelete} items={variants || []} />
         </div>
       )}
-      {!isCreating && (
-        <p className="text-xs text-muted-foreground mt-4">
-          Утримуйте та перетягніть для зміни порядку
-        </p>
-      )}
     </div>
-  )
-}
+  );
+};

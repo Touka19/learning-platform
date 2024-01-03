@@ -41,7 +41,7 @@ export const ChapterVideoForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Ой!😯 Щось пішло не так");
+      toast.error("Ой! Щось пішло не так");
     }
   }
 

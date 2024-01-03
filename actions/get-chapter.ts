@@ -29,6 +29,18 @@ export const getChapter = async ({
       },
       select: {
         enrollments: true,
+        tests: {
+          select: {
+            id: true,
+            title: true,
+            position: true,
+            isPublished: true,
+            courseId: true,
+            createdAt: true,
+            updatedAt: true,
+            variants: true,
+          },
+        },
       },
     });
 

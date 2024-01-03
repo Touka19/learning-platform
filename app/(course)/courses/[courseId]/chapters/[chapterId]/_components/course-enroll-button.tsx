@@ -21,7 +21,7 @@ export const CourseEnrollButton = ({ courseId }: CourseEnrollButtonProps) => {
 
       window.location.assign(response.data.url);
     } catch {
-      toast.error("Упс!😅 Щось пішло не так");
+      toast.error("Упс! Щось пішло не так");
     } finally {
       setIsLoading(false);
     }

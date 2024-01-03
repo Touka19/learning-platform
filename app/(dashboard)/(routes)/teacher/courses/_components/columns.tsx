@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { Course } from "@prisma/client"
-import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react"
+import { Course } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,7 @@ export const columns: ColumnDef<Course>[] = [
           Назва
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
   },
   {
@@ -38,23 +38,20 @@ export const columns: ColumnDef<Course>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Опубліковано
+          Статус
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
-      )
+      );
     },
     cell: ({ row }) => {
       const isPublished = row.getValue("isPublished") || false;
 
       return (
-        <Badge className={cn(
-          "bg-slate-500",
-          isPublished && "bg-sky-700"
-        )}>
+        <Badge className={cn("bg-slate-500", isPublished && "bg-sky-700")}>
           {isPublished ? "Опубліковано" : "В очікуванні"}
         </Badge>
-      )
-    }
+      );
+    },
   },
   {
     id: "actions",
@@ -78,7 +75,7 @@ export const columns: ColumnDef<Course>[] = [
             </Link>
           </DropdownMenuContent>
         </DropdownMenu>
-      )
-    }
-  }
-]
+      );
+    },
+  },
+];

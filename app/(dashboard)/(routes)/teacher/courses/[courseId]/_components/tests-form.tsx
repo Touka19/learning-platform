@@ -8,7 +8,7 @@ import { Loader2, PlusCircle } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Chapter, Course } from "@prisma/client";
+import { Course, Test } from "@prisma/client";
 
 import {
   Form,
@@ -21,27 +21,24 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 
-import { ChaptersList } from "./chapters-list";
+import { TestsList } from "./tests-list";
 
-interface ChaptersFormProps {
-  initialData: Course & { chapters: Chapter[] };
+interface TestsFormProps {
+  initialData: Course & { tests: Test[] };
   courseId: string;
-};
+}
 
 const formSchema = z.object({
   title: z.string().min(1),
 });
 
-export const ChaptersForm = ({
-  initialData,
-  courseId
-}: ChaptersFormProps) => {
+export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
   const [isCreating, setIsCreating] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const toggleCreating = () => {
     setIsCreating((current) => !current);
-  }
+  };
 
   const router = useRouter();
 
@@ -56,34 +53,33 @@ export const ChaptersForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post(`/api/courses/${courseId}/chapters`, values);
-      toast.success("Розділ створено");
+      await axios.post(`/api/courses/${courseId}/tests`, values);
+      toast.success("Тест створено");
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Упс! Щось пішло не так");
     }
-  }
+  };
 
   const onReorder = async (updateData: { id: string; position: number }[]) => {
     try {
       setIsUpdating(true);
-
-      await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
-        list: updateData
+      await axios.put(`/api/courses/${courseId}/tests/reorder`, {
+        list: updateData,
       });
-      toast.success("порядок змінено");
+      toast.success("Порядок змінено");
       router.refresh();
     } catch {
       toast.error("Ой! Щось пішло не так");
     } finally {
       setIsUpdating(false);
     }
-  }
+  };
 
   const onEdit = (id: string) => {
-    router.push(`/teacher/courses/${courseId}/chapters/${id}`);
-  }
+    router.push(`/teacher/courses/${courseId}/tests/${id}`);
+  };
 
   return (
     <div className="relative mt-6 border bg-slate-100 rounded-md p-4">
@@ -93,14 +89,14 @@ export const ChaptersForm = ({
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Розділи курсу
+        Тестові питання
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
             <>Відмінити</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати розділ
+              Додати питання
             </>
           )}
         </Button>
@@ -119,7 +115,7 @@ export const ChaptersForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Сучасна історія"
+                      placeholder="Приклад: Чому дорінює 2+2?"
                       {...field}
                     />
                   </FormControl>
@@ -127,33 +123,32 @@ export const ChaptersForm = ({
                 </FormItem>
               )}
             />
-            <Button
-              disabled={!isValid || isSubmitting}
-              type="submit"
-            >
+            <Button disabled={!isValid || isSubmitting} type="submit">
               Створити
             </Button>
           </form>
         </Form>
       )}
       {!isCreating && (
-        <div className={cn(
-          "text-sm mt-2",
-          !initialData.chapters.length && "text-slate-500 italic"
-        )}>
-          {!initialData.chapters.length && "Розділів немає"}
-          <ChaptersList
+        <div
+          className={cn(
+            "text-sm mt-2",
+            !initialData.tests.length && "text-slate-500 italic"
+          )}
+        >
+          {!initialData.tests.length && "Питань немає"}
+          <TestsList
             onEdit={onEdit}
             onReorder={onReorder}
-            items={initialData.chapters || []}
+            items={initialData.tests || []}
           />
         </div>
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Утримуйте та перетягніть для зміни порядку
+          Перетягніть та утримуйте для зміни порядку
         </p>
       )}
     </div>
-  )
-}
+  );
+};

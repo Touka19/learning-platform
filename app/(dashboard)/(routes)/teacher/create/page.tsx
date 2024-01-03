@@ -31,7 +31,7 @@ const CreatePage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: ""
+      title: "",
     },
   });
 
@@ -43,18 +43,17 @@ const CreatePage = () => {
       router.push(`/teacher/courses/${response.data.id}`);
       toast.success("Курс створено!");
     } catch {
-      toast.error("Ой!😯 Щось пішло не так");
+      toast.error("Упс! Щось пішло не так");
     }
-  }
+  };
 
   return (
     <div className="max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6">
       <div>
-        <h1 className="text-2xl">
-          Назвіть ваш курс
-        </h1>
+        <h1 className="text-2xl">Назвіть ваш курс</h1>
         <p className="text-sm text-slate-600">
-          Як би ви хотіли назвати ваш курс? Не хвилюйтесь, ви можете звінити це в майбутньому.
+          Як би ви хотіли назвати ваш курс? Не хвилюйтесь, ви можете звінити це
+          в майбутньому.
         </p>
         <Form {...form}>
           <form
@@ -66,9 +65,7 @@ const CreatePage = () => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
-                    Назва курсу
-                  </FormLabel>
+                  <FormLabel>Назва курсу</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
@@ -85,17 +82,11 @@ const CreatePage = () => {
             />
             <div className="flex items-center gap-x-2">
               <Link href="/">
-                <Button
-                  type="button"
-                  variant="ghost"
-                >
+                <Button type="button" variant="ghost">
                   Відмінити
                 </Button>
               </Link>
-              <Button
-                type="submit"
-                disabled={!isValid || isSubmitting}
-              >
+              <Button type="submit" disabled={!isValid || isSubmitting}>
                 Продовжити
               </Button>
             </div>
@@ -103,7 +94,7 @@ const CreatePage = () => {
         </Form>
       </div>
     </div>
-   );
-}
+  );
+};
 
 export default CreatePage;

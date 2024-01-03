@@ -55,7 +55,7 @@ export const ChapterActions = ({
       router.refresh();
       router.push(`/teacher/courses/${courseId}`);
     } catch {
-      toast.error("Ой!😅 Щось пішло не так");
+      toast.error("Ой! Щось пішло не так");
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +69,7 @@ export const ChapterActions = ({
         variant="outline"
         size="sm"
       >
-        {isPublished ? "Не опубліковано" : "Опубліковано"}
+        {isPublished ? "Деактивувати" : "Опублікувати"}
       </Button>
       <ConfirmModal onConfirm={onDelete}>
         <Button size="sm" disabled={isLoading}>
