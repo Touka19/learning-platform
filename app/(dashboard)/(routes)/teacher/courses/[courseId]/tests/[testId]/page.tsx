@@ -1,10 +1,9 @@
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, CaseUpper } from "lucide-react";
+import { ArrowLeft, CheckSquare } from "lucide-react";
 
 import { db } from "@/lib/db";
-import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
 
 import { VariantsForm } from "./_components/variants-form";
@@ -79,7 +78,7 @@ const TestIdPage = async ({
           <div className="space-y-4">
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={CaseUpper} />
+                <CheckSquare />
                 <h2 className="text-xl">Варіанти відповідей</h2>
               </div>
               <VariantsForm

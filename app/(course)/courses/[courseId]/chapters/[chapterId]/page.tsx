@@ -40,12 +40,12 @@ const ChapterIdPage = async ({
   return (
     <div>
       {userProgress?.isCompleted && (
-        <Banner variant="success" label="Розділ вже пройдено." />
+        <Banner variant="success" label="Розділ завершений" />
       )}
       {isLocked && (
         <Banner
           variant="warning"
-          label="Запишіться курс для перегляду цього розділу."
+          label="Запишіться на курс для перегляду цього розділу"
         />
       )}
       <ChapterPage

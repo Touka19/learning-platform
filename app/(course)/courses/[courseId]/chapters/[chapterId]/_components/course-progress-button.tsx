@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { CheckCircle, XCircle } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -48,7 +48,7 @@ export const CourseProgressButton = ({
         router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
       }
 
-      toast.success("Прогрес оновлено");
+      toast.success("Прогрес курсу оновлено");
       router.refresh();
     } catch {
       toast.error("Ой! Щось пішло не так");
@@ -57,18 +57,18 @@ export const CourseProgressButton = ({
     }
   };
 
-  const Icon = isCompleted ? XCircle : CheckCircle;
+  const Icon = isCompleted ? X : Check;
 
   return (
     <Button
       onClick={onClick}
       disabled={isLoading}
       type="button"
-      variant={isCompleted ? "outline" : "success"}
+      variant="secondary"
       className="w-full md:w-auto"
     >
+      <Icon className="h-5 w-5 mr-2" />
       {isCompleted ? "Позначити як не завершений" : "Позначити як завершений"}
-      <Icon className="h-4 w-4 ml-2" />
     </Button>
   );
 };

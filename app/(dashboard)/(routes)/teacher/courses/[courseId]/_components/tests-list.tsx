@@ -69,7 +69,7 @@ export const TestsList = ({ items, onReorder, onEdit }: TestsListProps) => {
                     className={cn(
                       "flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm",
                       test.isPublished &&
-                        "bg-sky-100 border-sky-200 text-sky-700"
+                        "bg-black-100 border-black-200 text-black-700"
                     )}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -77,18 +77,19 @@ export const TestsList = ({ items, onReorder, onEdit }: TestsListProps) => {
                     <div
                       className={cn(
                         "px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 rounded-l-md transition",
-                        test.isPublished && "border-r-sky-200 hover:bg-sky-200"
+                        test.isPublished &&
+                          "border-r-black-200 hover:bg-black-200"
                       )}
                       {...provided.dragHandleProps}
                     >
                       <Grip className="h-5 w-5" />
                     </div>
                     {test.title}
-                    <div className="ml-auto pr-2 flex items-center gap-x-2">
+                    <div className="ml-auto pr-2 flex items-center gap-x-3">
                       <Badge
                         className={cn(
                           "bg-slate-500",
-                          test.isPublished && "bg-sky-700"
+                          test.isPublished && "bg-green-700"
                         )}
                       >
                         {test.isPublished ? "Опубліковано" : "В очікувані"}
