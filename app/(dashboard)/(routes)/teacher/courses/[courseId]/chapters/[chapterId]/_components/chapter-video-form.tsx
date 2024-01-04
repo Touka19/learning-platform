@@ -17,7 +17,7 @@ interface ChapterVideoFormProps {
   initialData: Chapter & { muxData?: MuxData | null };
   courseId: string;
   chapterId: string;
-};
+}
 
 const formSchema = z.object({
   videoUrl: z.string().min(1),
@@ -36,23 +36,24 @@ export const ChapterVideoForm = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
+      await axios.patch(
+        `/api/courses/${courseId}/chapters/${chapterId}`,
+        values
+      );
       toast.success("Розділ оновлено");
       toggleEdit();
       router.refresh();
     } catch {
       toast.error("Ой! Щось пішло не так");
     }
-  }
+  };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Відео розділу
         <Button onClick={toggleEdit} variant="ghost">
-          {isEditing && (
-            <>Відмінити</>
-          )}
+          {isEditing && <>Відмінити</>}
           {!isEditing && !initialData.videoUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
@@ -67,19 +68,16 @@ export const ChapterVideoForm = ({
           )}
         </Button>
       </div>
-      {!isEditing && (
-        !initialData.videoUrl ? (
+      {!isEditing &&
+        (!initialData.videoUrl ? (
           <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
             <Video className="h-10 w-10 text-slate-500" />
           </div>
         ) : (
           <div className="relative aspect-video mt-2">
-            <MuxPlayer
-              playbackId={initialData?.muxData?.playbackId || ""}
-            />
+            <MuxPlayer playbackId={initialData?.muxData?.playbackId || ""} />
           </div>
-        )
-      )}
+        ))}
       {isEditing && (
         <div>
           <FileUpload
@@ -91,15 +89,16 @@ export const ChapterVideoForm = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-           Додайте відео для цього розділу
+            Додайте відео для цього розділу
           </div>
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
-        <div className="text-xs text-muted-foreground mt-2">
-          Завантаження відео може зайняти деякий час. Оновіть сторінку якщо відео не з'являється.
+        <div className="text-xs text-muted-foreground">
+          Обробка відео може зайняти деякий час. Спробуйте оновити сторінку,
+          якщо відео не відображається
         </div>
       )}
     </div>
-  )
-}
+  );
+};

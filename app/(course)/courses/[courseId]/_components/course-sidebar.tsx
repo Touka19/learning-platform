@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { CourseProgress } from "@/components/course-progress";
 
 import { CourseSidebarItem } from "./course-sidebar-item";
+import { Logo } from "@/app/(dashboard)/_components/logo";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -36,11 +37,12 @@ export const CourseSidebar = async ({
   });
 
   return (
-    <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-      <div className="p-8 flex flex-col border-b">
-        <h1 className="font-semibold">{course.title}</h1>
+    <div className="h-full border-r flex flex-col overflow-y-auto bg-white shadow-xl">
+      <div className="p-6">
+        <Logo />
+        <h1 className="mt-4 font-semibold">{course.title}</h1>
         {enrollment && (
-          <div className="mt-10">
+          <div className="mt-2">
             <CourseProgress variant="success" value={progressCount} />
           </div>
         )}

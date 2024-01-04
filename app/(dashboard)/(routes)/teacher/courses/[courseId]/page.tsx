@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { Paperclip, LayoutDashboard, List, ListTodo } from "lucide-react";
 
 import { db } from "@/lib/db";
-import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
 
 import { TitleForm } from "./_components/title-form";
@@ -94,8 +93,8 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
           <div>
             <div className="flex items-center gap-x-2">
-              <IconBadge icon={LayoutDashboard} />
-              <h2 className="text-xl">Налаштуйте ваш курс</h2>
+              <LayoutDashboard />
+              <h2 className="text-xl">Загальні налаштування</h2>
             </div>
             <TitleForm initialData={course} courseId={course.id} />
             <DescriptionForm initialData={course} courseId={course.id} />
@@ -112,21 +111,21 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           <div className="space-y-6">
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={List} />
+                <List />
                 <h2 className="text-xl">Розділи курсу</h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={Paperclip} />
-                <h2 className="text-xl">Матеріали</h2>
+                <Paperclip />
+                <h2 className="text-xl">Додаткові матеріали</h2>
               </div>
               <AttachmentForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={ListTodo} />
+                <ListTodo />
                 <h2 className="text-xl">Тестування</h2>
               </div>
               <TestsForm initialData={course} courseId={course.id} />

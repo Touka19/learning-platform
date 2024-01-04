@@ -2,13 +2,13 @@
 
 import { Category } from "@prisma/client";
 import {
-  FcEngineering,
-  FcFilmReel,
-  FcMultipleDevices,
-  FcMusic,
-  FcOldTimeCamera,
-  FcSalesPerformance,
-  FcSportsMode
+  FcGlobe,
+  FcLock,
+  FcIphone,
+  FcAssistant,
+  FcElectronics,
+  FcSearch,
+  FcFolder,
 } from "react-icons/fc";
 import { IconType } from "react-icons";
 
@@ -19,18 +19,16 @@ interface CategoriesProps {
 }
 
 const iconMap: Record<Category["name"], IconType> = {
-  "Музика": FcMusic,
-  "Фотографія": FcOldTimeCamera,
-  "Фітнесс": FcSportsMode,
-  "Фінанси": FcSalesPerformance,
-  "Комп'ютерна науки": FcMultipleDevices,
-  "Кінематографія": FcFilmReel,
-  "Інженерія": FcEngineering,
+  "Web development": FcGlobe,
+  "Cybersecurity": FcLock,
+  "Mobile development": FcIphone,
+  "QA": FcSearch,
+  "Big data": FcFolder,
+  "Machine learning": FcElectronics,
+  "Tech support": FcAssistant,
 };
 
-export const Categories = ({
-  items,
-}: CategoriesProps) => {
+export const Categories = ({ items }: CategoriesProps) => {
   return (
     <div className="flex items-center gap-x-2 overflow-x-auto pb-2">
       {items.map((item) => (
@@ -42,5 +40,5 @@ export const Categories = ({
         />
       ))}
     </div>
-  )
-}
+  );
+};

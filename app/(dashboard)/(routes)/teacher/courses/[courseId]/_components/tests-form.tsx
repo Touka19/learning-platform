@@ -68,7 +68,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
       await axios.put(`/api/courses/${courseId}/tests/reorder`, {
         list: updateData,
       });
-      toast.success("Порядок змінено");
+      toast.success("Порядок тестів змінено");
       router.refresh();
     } catch {
       toast.error("Ой! Щось пішло не так");
@@ -85,7 +85,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
     <div className="relative mt-6 border bg-slate-100 rounded-md p-4">
       {isUpdating && (
         <div className="absolute h-full w-full bg-slate-500/20 top-0 right-0 rounded-m flex items-center justify-center">
-          <Loader2 className="animate-spin h-6 w-6 text-sky-700" />
+          <Loader2 className="animate-spin h-6 w-6 text-black-700" />
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
@@ -115,7 +115,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Чому дорінює 2+2?"
+                      placeholder="Приклад: Що таке Typescript?"
                       {...field}
                     />
                   </FormControl>

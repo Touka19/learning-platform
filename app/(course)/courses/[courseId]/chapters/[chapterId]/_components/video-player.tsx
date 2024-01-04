@@ -50,7 +50,7 @@ export const VideoPlayer = ({
           setTimeout(() => showTests(), 3000);
         }
 
-        toast.success("Прогрес оновлено");
+        toast.success("Прогрес курсу оновлено");
         router.refresh();
 
         if (nextChapterId) {
@@ -63,7 +63,7 @@ export const VideoPlayer = ({
   };
 
   return (
-    <div className="relative aspect-video">
+    <div className="relative aspect-video mt-5">
       {!isReady && !isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
           <Loader2 className="h-8 w-8 animate-spin text-secondary" />
@@ -72,7 +72,7 @@ export const VideoPlayer = ({
       {isLocked && (
         <div className="absolute inset-0 flex items-center justify-center bg-slate-800 flex-col gap-y-2 text-secondary">
           <Lock className="h-8 w-8" />
-          <p className="text-sm">Цей розділ не доступний</p>
+          <p className="text-sm">Цей розділ недоступний</p>
         </div>
       )}
       {!isLocked && (

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 
 import { db } from "@/lib/db";
-import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
 
 import { ChapterTitleForm } from "./_components/chapter-title-form";
@@ -14,9 +13,9 @@ import { ChapterVideoForm } from "./_components/chapter-video-form";
 import { ChapterActions } from "./_components/chapter-actions";
 
 const ChapterIdPage = async ({
-  params
+  params,
 }: {
-  params: { courseId: string; chapterId: string }
+  params: { courseId: string; chapterId: string };
 }) => {
   const { userId } = auth();
 
@@ -27,7 +26,7 @@ const ChapterIdPage = async ({
   const chapter = await db.chapter.findUnique({
     where: {
       id: params.chapterId,
-      courseId: params.courseId
+      courseId: params.courseId,
     },
     include: {
       muxData: true,
@@ -35,14 +34,10 @@ const ChapterIdPage = async ({
   });
 
   if (!chapter) {
-    return redirect("/")
+    return redirect("/");
   }
 
-  const requiredFields = [
-    chapter.title,
-    chapter.description,
-    chapter.videoUrl,
-  ];
+  const requiredFields = [chapter.title, chapter.description, chapter.videoUrl];
 
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
@@ -56,7 +51,7 @@ const ChapterIdPage = async ({
       {!chapter.isPublished && (
         <Banner
           variant="warning"
-          label="Цей розділ не опубліковано. Його не буде видно в курсі"
+          label="Цей розділ не опублікований. Його не буде в курсі"
         />
       )}
       <div className="p-6">
@@ -71,9 +66,7 @@ const ChapterIdPage = async ({
             </Link>
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col gap-y-2">
-                <h1 className="text-2xl font-medium">
-                  Створення Розділу
-                </h1>
+                <h1 className="text-2xl font-medium">Створення Розділу</h1>
                 <span className="text-sm text-slate-700">
                   Заповніть усі поля {completionText}
                 </span>
@@ -91,10 +84,8 @@ const ChapterIdPage = async ({
           <div className="space-y-4">
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={LayoutDashboard} />
-                <h2 className="text-xl">
-                  Налаштуйте розділ
-                </h2>
+                <LayoutDashboard />
+                <h2 className="text-xl">Загальні налаштування</h2>
               </div>
               <ChapterTitleForm
                 initialData={chapter}
@@ -109,10 +100,8 @@ const ChapterIdPage = async ({
             </div>
             <div>
               <div className="flex items-center gap-x-2">
-                <IconBadge icon={Eye} />
-                <h2 className="text-xl">
-                  Налаштування доступу
-                </h2>
+                <Eye />
+                <h2 className="text-xl">Налаштування доступу</h2>
               </div>
               <ChapterAccessForm
                 initialData={chapter}
@@ -123,10 +112,8 @@ const ChapterIdPage = async ({
           </div>
           <div>
             <div className="flex items-center gap-x-2">
-              <IconBadge icon={Video} />
-              <h2 className="text-xl">
-                Додайте відео
-              </h2>
+              <Video />
+              <h2 className="text-xl">Відео</h2>
             </div>
             <ChapterVideoForm
               initialData={chapter}
@@ -137,7 +124,7 @@ const ChapterIdPage = async ({
         </div>
       </div>
     </>
-   );
-}
+  );
+};
 
 export default ChapterIdPage;
