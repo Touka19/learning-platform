@@ -23,21 +23,19 @@ export const VariantsList = ({ items, onDelete }: VariantsListProps) => {
         <div
           key={variant.id}
           className={
-            "flex items-center gap-x-2 bg-sky-100 border-sky-200 border text-sky-700 rounded-md mb-4 text-sm"
+            "flex items-center gap-x-2 bg-black-100 border-black-200 border text-black-700 rounded-md mb-4 text-sm"
           }
         >
           <div
             className={
-              "flex px-3 py-3 border-r border-r-sky-200 rounded-l-md transition"
+              "flex px-3 py-3 border-r border-r-black-200 rounded-l-md transition"
             }
           >
             {alphabet[index]}
           </div>
           {variant.title}
-          <div className="ml-auto pr-2 flex items-center gap-x-2">
-            <Badge className={cn("bg-sky-700")}>
-              {variant.isCorrect ? "Правильна" : "Неправильна"}
-            </Badge>
+          <div className="ml-auto pr-2 flex items-center gap-x-3">
+            <Badge>{variant.isCorrect ? "Правильна" : "Неправильна"}</Badge>
             <Trash
               onClick={() => onDelete(variant.id)}
               className="w-4 h-4 cursor-pointer hover:opacity-75 transition"

@@ -1,19 +1,19 @@
 "use client";
 
-import { Compass, Layout, List } from "lucide-react";
+import { BookOpen, Library, List } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
 
 const guestRoutes = [
   {
-    icon: Layout,
-    label: "Головна",
+    icon: BookOpen,
+    label: "Мої курси",
     href: "/",
   },
   {
-    icon: Compass,
-    label: "Пошук",
+    icon: Library,
+    label: "Каталог курсів",
     href: "/search",
   },
 ];

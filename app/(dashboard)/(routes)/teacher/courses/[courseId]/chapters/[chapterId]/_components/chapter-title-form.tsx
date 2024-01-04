@@ -56,7 +56,7 @@ export const ChapterTitleForm = ({
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("😯 Щось не так");
+      toast.error("Ой! Щось пішло не так");
     }
   }
 
@@ -94,7 +94,7 @@ export const ChapterTitleForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="приклад: 'Інтро'"
+                      placeholder="Приклад: Інтро"
                       {...field}
                     />
                   </FormControl>

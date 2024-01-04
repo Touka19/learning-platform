@@ -17,12 +17,12 @@ interface ChaptersListProps {
   items: Chapter[];
   onReorder: (updateData: { id: string; position: number }[]) => void;
   onEdit: (id: string) => void;
-};
+}
 
 export const ChaptersList = ({
   items,
   onReorder,
-  onEdit
+  onEdit,
 }: ChaptersListProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const [chapters, setChapters] = useState(items);
@@ -51,11 +51,11 @@ export const ChaptersList = ({
 
     const bulkUpdateData = updatedChapters.map((chapter) => ({
       id: chapter.id,
-      position: items.findIndex((item) => item.id === chapter.id)
+      position: items.findIndex((item) => item.id === chapter.id),
     }));
 
     onReorder(bulkUpdateData);
-  }
+  };
 
   if (!isMounted) {
     return null;
@@ -76,7 +76,8 @@ export const ChaptersList = ({
                   <div
                     className={cn(
                       "flex items-center gap-x-2 bg-slate-200 border-slate-200 border text-slate-700 rounded-md mb-4 text-sm",
-                      chapter.isPublished && "bg-sky-100 border-sky-200 text-sky-700"
+                      chapter.isPublished &&
+                        "bg-black-100 border-black-200 text-black-700"
                     )}
                     ref={provided.innerRef}
                     {...provided.draggableProps}
@@ -84,13 +85,12 @@ export const ChaptersList = ({
                     <div
                       className={cn(
                         "px-2 py-3 border-r border-r-slate-200 hover:bg-slate-300 rounded-l-md transition",
-                        chapter.isPublished && "border-r-sky-200 hover:bg-sky-200"
+                        chapter.isPublished &&
+                          "border-r-black-200 hover:bg-black-200"
                       )}
                       {...provided.dragHandleProps}
                     >
-                      <Grip
-                        className="h-5 w-5"
-                      />
+                      <Grip className="h-5 w-5" />
                     </div>
                     {chapter.title}
                     <div className="ml-auto pr-2 flex items-center gap-x-2">
@@ -102,7 +102,7 @@ export const ChaptersList = ({
                       <Badge
                         className={cn(
                           "bg-slate-500",
-                          chapter.isPublished && "bg-sky-700"
+                          chapter.isPublished && "bg-green-700"
                         )}
                       >
                         {chapter.isPublished ? "Опубліковано" : "В очікувані"}
@@ -121,5 +121,5 @@ export const ChaptersList = ({
         )}
       </Droppable>
     </DragDropContext>
-  )
-}
+  );
+};

@@ -52,8 +52,7 @@ const CreatePage = () => {
       <div>
         <h1 className="text-2xl">Назвіть ваш курс</h1>
         <p className="text-sm text-slate-600">
-          Як би ви хотіли назвати ваш курс? Не хвилюйтесь, ви можете звінити це
-          в майбутньому.
+          Як називатиметься ваш курс? Ви зможете звінити цю назву в майбутньому
         </p>
         <Form {...form}>
           <form
@@ -69,19 +68,16 @@ const CreatePage = () => {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="приклад: Професійна Веб розробка"
+                      placeholder="Приклад: Основи веб розробки"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
-                    Чому ви будете навчати в цьому курсі?
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href="/">
+              <Link href="/teacher/courses">
                 <Button type="button" variant="ghost">
                   Відмінити
                 </Button>

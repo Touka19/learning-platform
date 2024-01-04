@@ -31,7 +31,7 @@ export const ChapterActions = ({
 
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
-        toast.success("Розділ не опубліковано");
+        toast.success("Розділ деактивовано");
       } else {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
         toast.success("Розділ опубліковано");
