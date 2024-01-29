@@ -55,6 +55,7 @@ const ChapterIdPage = async ({
         courseId={params.courseId}
         chapter={chapter}
         tests={course.tests}
+        courseTitle={course.title}
         attachments={attachments}
         nextChapter={nextChapter}
         muxData={muxData}
