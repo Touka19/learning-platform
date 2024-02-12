@@ -28,6 +28,7 @@ export const getChapter = async ({
         id: courseId,
       },
       select: {
+        title: true,
         enrollments: true,
         tests: {
           select: {

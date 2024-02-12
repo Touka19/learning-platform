@@ -17,6 +17,7 @@ import {
   UserProgress,
   Variant,
 } from "@prisma/client";
+import { SupportPopover } from "./support-popover";
 
 interface ChapterPageProps {
   enrollment: Enrollment | null;
@@ -29,6 +30,7 @@ interface ChapterPageProps {
   nextChapter: Chapter | null;
   muxData: MuxData | null;
   isLocked: boolean;
+  courseTitle: string;
 }
 
 export const ChapterPage = ({
@@ -42,6 +44,7 @@ export const ChapterPage = ({
   nextChapter,
   muxData,
   isLocked,
+  courseTitle,
 }: ChapterPageProps) => {
   const completeOnEnd = !!enrollment && !userProgress?.isCompleted;
   const [isTestVisible, setIsTestVisible] = useState(false);
@@ -110,6 +113,17 @@ export const ChapterPage = ({
           isOpen={isTestVisible}
           closeTests={closeTests}
         />
+        <div className="fixed bottom-5 right-5">
+          {enrollment && (
+            <SupportPopover
+              courseId={courseId}
+              chapterId={chapterId}
+              chapterDescription={chapter.description!}
+              courseTitle={courseTitle}
+              chapterTitle={chapter.title}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
