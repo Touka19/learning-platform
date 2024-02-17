@@ -6,7 +6,7 @@ In today's world, where speed and mobility are key factors, the education sector
 
 The project is based on the following course: https://www.youtube.com/watch?v=Big_aFLmekI
 
-Key Features:
+### Key Features
 
 - Browse & Filter Courses
 - Student & Teacher dashboards
@@ -15,6 +15,12 @@ Key Features:
 - Live support chat based on ChatGPT API for the students
 - Thumbnails, attachments and videos uploading using UploadThing
 - Tests with multiple-choice questions after finishing the course
+
+### App previews
+
+![Screenshot 2024-02-18 at 01 12 42](https://github.com/TionCada/learning-platform/assets/71350925/a3bf449e-187a-462d-8e1b-83ad2ed5c441)
+
+![Screenshot 2024-02-18 at 01 12 28](https://github.com/TionCada/learning-platform/assets/71350925/a524be25-1470-4c3c-8366-a0e1c0ca7f84)
 
 ### Prerequisites
 
