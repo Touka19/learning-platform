@@ -30,7 +30,7 @@ export const NavbarRoutes = () => {
           <Link href="/">
             <Button size="sm" variant="secondary">
               <LogOut className="h-4 w-4 mr-2" />
-              На головну
+              On the main one
             </Button>
           </Link>
         ) : isTeacher(userId) ? (
