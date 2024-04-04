@@ -36,7 +36,7 @@ export const NavbarRoutes = () => {
         ) : isTeacher(userId) ? (
           <Link href="/teacher/courses">
             <Button size="sm" variant="secondary">
-              Teacher's office
+              Teachers office
             </Button>
           </Link>
         ) : null}
