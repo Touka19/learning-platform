@@ -31,15 +31,15 @@ export const TestActions = ({
 
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/tests/${testId}/unpublish`);
-        toast.success("Розділ деактивовано");
+        toast.success("The section is deactivated");
       } else {
         await axios.patch(`/api/courses/${courseId}/tests/${testId}/publish`);
-        toast.success("Розділ опубліковано");
+        toast.success("The section is published");
       }
 
       router.refresh();
     } catch {
-      toast.error("Упс! Щось пішло не так");
+      toast.error("Oops! Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -49,11 +49,11 @@ export const TestActions = ({
     try {
       setIsLoading(true);
       await axios.delete(`/api/courses/${courseId}/tests/${testId}`);
-      toast.success("Тест видалено");
+      toast.success("The test is deleted");
       router.refresh();
       router.push(`/teacher/courses/${courseId}`);
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -67,7 +67,7 @@ export const TestActions = ({
         variant="outline"
         size="sm"
       >
-        {isPublished ? "Деактивувати" : "Опублікувати"}
+        {isPublished ? "Deactivate" : "Publish"}
       </Button>
       <ConfirmModal onConfirm={onDelete}>
         <Button size="sm" disabled={isLoading}>

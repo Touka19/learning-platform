@@ -30,13 +30,13 @@ export const ConfirmModal = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Ви впевнені?</AlertDialogTitle>
           <AlertDialogDescription>
-            Ця дія не може бути скасована у майбутньому.
+            This action cannot be canceled in the future.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Відмінити</AlertDialogCancel>
+          <AlertDialogCancel>To cancel</AlertDialogCancel>
           <AlertDialogAction onClick={onConfirm}>
-            Продовжити
+            Continue
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

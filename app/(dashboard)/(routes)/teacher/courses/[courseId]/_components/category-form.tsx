@@ -55,11 +55,11 @@ export const CategoryForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Курс оновлено");
+      toast.success("The course has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Ох! Щось не спрацювало");
+      toast.error("Oh! Something didn't work");
     }
   };
 
@@ -73,11 +73,11 @@ export const CategoryForm = ({
         Категорія курсу
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Відмінити</>
+            <>To cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Змінити категорію
+              Change the category
             </>
           )}
         </Button>
@@ -89,7 +89,7 @@ export const CategoryForm = ({
             !initialData.categoryId && "text-slate-500 italic"
           )}
         >
-          {selectedOption?.label || "Немає категорії"}
+          {selectedOption?.label || "No category"}
         </p>
       )}
       {isEditing && (
@@ -112,7 +112,7 @@ export const CategoryForm = ({
             />
             <div className="flex items-center gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Зберегти
+                Save
               </Button>
             </div>
           </form>

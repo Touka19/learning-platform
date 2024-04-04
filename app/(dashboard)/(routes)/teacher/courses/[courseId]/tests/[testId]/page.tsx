@@ -46,7 +46,7 @@ const TestIdPage = async ({
   return (
     <>
       {!test.isPublished && (
-        <Banner label="Тест не опубліковано. Він не буде видимим для студентів." />
+        <Banner label="The test is not published. It will not be visible to students." />
       )}
       <div className="p-6">
         <div className="flex items-center justify-between">
@@ -56,13 +56,13 @@ const TestIdPage = async ({
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Назад до налаштувань курсу
+              Back to the course settings
             </Link>
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col gap-y-2">
                 <h1 className="text-2xl font-medium">Налаштування тесту</h1>
                 <span className="text-sm text-slate-700">
-                  Заповніть усі поля {completionText}
+                  Complete all fields {completionText}
                 </span>
               </div>
               <TestActions
@@ -79,7 +79,7 @@ const TestIdPage = async ({
             <div>
               <div className="flex items-center gap-x-2">
                 <CheckSquare />
-                <h2 className="text-xl">Варіанти відповідей</h2>
+                <h2 className="text-xl">Answer options</h2>
               </div>
               <VariantsForm
                 variants={test.variants}

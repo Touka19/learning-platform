@@ -92,7 +92,7 @@ export const TestsList = ({ items, onReorder, onEdit }: TestsListProps) => {
                           test.isPublished && "bg-green-700"
                         )}
                       >
-                        {test.isPublished ? "Опубліковано" : "В очікувані"}
+                        {test.isPublished ? "Posted" : "In expected"}
                       </Badge>
                       <Pencil
                         onClick={() => onEdit(test.id)}

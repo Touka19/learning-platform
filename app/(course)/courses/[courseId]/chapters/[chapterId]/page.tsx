@@ -45,7 +45,7 @@ const ChapterIdPage = async ({
       {isLocked && (
         <Banner
           variant="warning"
-          label="Запишіться на курс для перегляду цього розділу"
+          label="Sign up for a course to view this section"
         />
       )}
       <ChapterPage

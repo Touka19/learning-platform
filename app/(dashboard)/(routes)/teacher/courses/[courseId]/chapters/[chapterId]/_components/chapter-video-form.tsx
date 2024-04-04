@@ -40,30 +40,30 @@ export const ChapterVideoForm = ({
         `/api/courses/${courseId}/chapters/${chapterId}`,
         values
       );
-      toast.success("Розділ оновлено");
+      toast.success("The section has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     }
   };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Відео розділу
+        Video section
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing && <>Відмінити</>}
           {!isEditing && !initialData.videoUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати відео
+              Add video
             </>
           )}
           {!isEditing && initialData.videoUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Змінити відео
+              Change the video
             </>
           )}
         </Button>
@@ -89,14 +89,14 @@ export const ChapterVideoForm = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            Додайте відео для цього розділу
+            Add a video for this section
           </div>
         </div>
       )}
       {initialData.videoUrl && !isEditing && (
         <div className="text-xs text-muted-foreground">
-          Обробка відео може зайняти деякий час. Спробуйте оновити сторінку,
-          якщо відео не відображається
+          Video processing may take a while. Try updating the page, 
+           If the video is not displayed
         </div>
       )}
     </div>

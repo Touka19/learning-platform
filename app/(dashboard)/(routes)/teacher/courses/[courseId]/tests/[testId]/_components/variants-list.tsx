@@ -35,7 +35,7 @@ export const VariantsList = ({ items, onDelete }: VariantsListProps) => {
           </div>
           {variant.title}
           <div className="ml-auto pr-2 flex items-center gap-x-3">
-            <Badge>{variant.isCorrect ? "Правильна" : "Неправильна"}</Badge>
+            <Badge>{variant.isCorrect ? "Correct" : "Incorrect"}</Badge>
             <Trash
               onClick={() => onDelete(variant.id)}
               className="w-4 h-4 cursor-pointer hover:opacity-75 transition"

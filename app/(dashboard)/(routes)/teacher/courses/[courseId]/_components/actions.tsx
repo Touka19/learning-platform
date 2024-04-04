@@ -27,16 +27,16 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
 
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/unpublish`);
-        toast.success("Курс деактивовано");
+        toast.success("The course is deactivated");
       } else {
         await axios.patch(`/api/courses/${courseId}/publish`);
-        toast.success("Курс опубліковано");
+        toast.success("The course is published");
         confetti.onOpen();
       }
 
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не за планом");
+      toast.error("Oh! Something went out of plan");
     } finally {
       setIsLoading(false);
     }
@@ -48,11 +48,11 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
 
       await axios.delete(`/api/courses/${courseId}`);
 
-      toast.success("Курс видалено");
+      toast.success("The course has been deleted");
       router.refresh();
       router.push(`/teacher/courses`);
     } catch {
-      toast.error("Ой! Не вдалось видалити курс");
+      toast.error("Oh! Could not remove the course");
     } finally {
       setIsLoading(false);
     }
@@ -66,7 +66,7 @@ export const Actions = ({ disabled, courseId, isPublished }: ActionsProps) => {
         variant="outline"
         size="sm"
       >
-        {isPublished ? "Деактивувати" : "Опублікувати"}
+        {isPublished ? "Deactivate" : "Publish"}
       </Button>
       <ConfirmModal onConfirm={onDelete}>
         <Button size="sm" disabled={isLoading}>

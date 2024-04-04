@@ -31,15 +31,15 @@ export const ChapterActions = ({
 
       if (isPublished) {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/unpublish`);
-        toast.success("Розділ деактивовано");
+        toast.success("The section is deactivated");
       } else {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
-        toast.success("Розділ опубліковано");
+        toast.success("THE SCESTION IP POPULATS");
       }
 
       router.refresh();
     } catch {
-      toast.error("Щось пішло не так");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -51,11 +51,11 @@ export const ChapterActions = ({
 
       await axios.delete(`/api/courses/${courseId}/chapters/${chapterId}`);
 
-      toast.success("Розділ видалено");
+      toast.success("The section has been deleted");
       router.refresh();
       router.push(`/teacher/courses/${courseId}`);
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +69,7 @@ export const ChapterActions = ({
         variant="outline"
         size="sm"
       >
-        {isPublished ? "Деактивувати" : "Опублікувати"}
+        {isPublished ? "Deactivate" : "Publish"}
       </Button>
       <ConfirmModal onConfirm={onDelete}>
         <Button size="sm" disabled={isLoading}>

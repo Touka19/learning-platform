@@ -54,11 +54,11 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(`/api/courses/${courseId}/chapters`, values);
-      toast.success("Розділ створено");
+      toast.success("The section is created");
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     }
   };
 
@@ -69,10 +69,10 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
       await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
         list: updateData,
       });
-      toast.success("Порядок розділів змінено");
+      toast.success("The order of sections has been changed");
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     } finally {
       setIsUpdating(false);
     }
@@ -90,14 +90,14 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Розділи курсу
+        The course sections
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
-            <>Відмінити</>
+            <>To cancel</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати розділ
+              Add section
             </>
           )}
         </Button>
@@ -116,7 +116,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: HTML та CSS"
+                      placeholder="Example: HTML and CSS"
                       {...field}
                     />
                   </FormControl>
@@ -125,7 +125,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
               )}
             />
             <Button disabled={!isValid || isSubmitting} type="submit">
-              Створити
+              Create
             </Button>
           </form>
         </Form>
@@ -147,7 +147,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Утримуйте та перетягніть для зміни порядку
+          Hold and drag to change order
         </p>
       )}
     </div>

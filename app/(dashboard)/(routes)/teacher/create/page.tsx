@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
   title: z.string().min(1, {
-    message: "Назва є обов'язковим полем",
+    message: "The name is a compulsory field",
   }),
 });
 
@@ -41,9 +41,9 @@ const CreatePage = () => {
     try {
       const response = await axios.post("/api/courses", values);
       router.push(`/teacher/courses/${response.data.id}`);
-      toast.success("Курс створено!");
+      toast.success("The course is created!");
     } catch {
-      toast.error("Упс! Щось пішло не так");
+      toast.error("Oops! Something went wrong");
     }
   };
 
@@ -52,7 +52,7 @@ const CreatePage = () => {
       <div>
         <h1 className="text-2xl">Назвіть ваш курс</h1>
         <p className="text-sm text-slate-600">
-          Як називатиметься ваш курс? Ви зможете звінити цю назву в майбутньому
+          How will your course be called? You will be able to turn this name in the future
         </p>
         <Form {...form}>
           <form
@@ -64,11 +64,11 @@ const CreatePage = () => {
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Назва курсу</FormLabel>
+                  <FormLabel>Name of course</FormLabel>
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Основи веб розробки"
+                      placeholder="Example: Basics of Web Development"
                       {...field}
                     />
                   </FormControl>
@@ -79,11 +79,11 @@ const CreatePage = () => {
             <div className="flex items-center gap-x-2">
               <Link href="/teacher/courses">
                 <Button type="button" variant="ghost">
-                  Відмінити
+                  To cancel
                 </Button>
               </Link>
               <Button type="submit" disabled={!isValid || isSubmitting}>
-                Продовжити
+                Continue
               </Button>
             </div>
           </form>

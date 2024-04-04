@@ -54,11 +54,11 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(`/api/courses/${courseId}/tests`, values);
-      toast.success("Тест створено");
+      toast.success("The test was created");
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Упс! Щось пішло не так");
+      toast.error("Oops! Something went wrong");
     }
   };
 
@@ -68,10 +68,10 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
       await axios.put(`/api/courses/${courseId}/tests/reorder`, {
         list: updateData,
       });
-      toast.success("Порядок тестів змінено");
+      toast.success("The order of the tests has been changed");
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     } finally {
       setIsUpdating(false);
     }
@@ -89,14 +89,14 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Тестові питання
+        Test questions
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
-            <>Відмінити</>
+            <>To cancel</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати питання
+              Add a question
             </>
           )}
         </Button>
@@ -115,7 +115,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Що таке Typescript?"
+                      placeholder="Example: What is Typescript?"
                       {...field}
                     />
                   </FormControl>
@@ -124,7 +124,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
               )}
             />
             <Button disabled={!isValid || isSubmitting} type="submit">
-              Створити
+              Create
             </Button>
           </form>
         </Form>
@@ -136,7 +136,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
             !initialData.tests.length && "text-slate-500 italic"
           )}
         >
-          {!initialData.tests.length && "Питань немає"}
+          {!initialData.tests.length && "There are no questions"}
           <TestsList
             onEdit={onEdit}
             onReorder={onReorder}
@@ -146,7 +146,7 @@ export const TestsForm = ({ initialData, courseId }: TestsFormProps) => {
       )}
       {!isCreating && (
         <p className="text-xs text-muted-foreground mt-4">
-          Перетягніть та утримуйте для зміни порядку
+          Drag and hold to change order
         </p>
       )}
     </div>

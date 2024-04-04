@@ -50,7 +50,7 @@ export const VideoPlayer = ({
           setTimeout(() => showTests(), 3000);
         }
 
-        toast.success("Прогрес курсу оновлено");
+        toast.success("The progress of the course has been updated");
         router.refresh();
 
         if (nextChapterId) {
@@ -58,7 +58,7 @@ export const VideoPlayer = ({
         }
       }
     } catch {
-      toast.error("Халепа! Щось пішло не так");
+      toast.error("Trouble! Something went wrongrongrong");
     }
   };
 

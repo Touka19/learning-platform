@@ -8,12 +8,12 @@ import { SidebarItem } from "./sidebar-item";
 const guestRoutes = [
   {
     icon: BookOpen,
-    label: "Мої курси",
+    label: "My courses",
     href: "/",
   },
   {
     icon: Library,
-    label: "Каталог курсів",
+    label: "Coursing catalog",
     href: "/search",
   },
 ];
@@ -21,7 +21,7 @@ const guestRoutes = [
 const teacherRoutes = [
   {
     icon: List,
-    label: "Курси",
+    label: "Courses",
     href: "/teacher/courses",
   },
 ];

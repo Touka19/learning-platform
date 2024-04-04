@@ -53,7 +53,7 @@ export const getChapter = async ({
     });
 
     if (!chapter || !course) {
-      throw new Error("Розділ або курс не знайдено");
+      throw new Error("Section or course not found");
     }
 
     let muxData = null;

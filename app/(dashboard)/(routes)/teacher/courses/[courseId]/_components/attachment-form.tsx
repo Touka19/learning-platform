@@ -35,11 +35,11 @@ export const AttachmentForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.post(`/api/courses/${courseId}/attachments`, values);
-      toast.success("Курс оновлено");
+      toast.success("The course has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("😅 Щось пішло не за планом");
+      toast.error("😅 Something went out of plan");
     }
   };
 
@@ -47,10 +47,10 @@ export const AttachmentForm = ({
     try {
       setDeletingId(id);
       await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
-      toast.success("Вложеня видалено");
+      toast.success("The stake is removed");
       router.refresh();
     } catch {
-      toast.error("Упс! Щось пішло не так");
+      toast.error("Oops! Something went wrong");
     } finally {
       setDeletingId(null);
     }
@@ -59,13 +59,13 @@ export const AttachmentForm = ({
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between mb-2">
-        Вложення курсу
+        The course of the course
         <Button onClick={toggleEdit} variant="ghost">
-          {isEditing && <>Відмінити</>}
+          {isEditing && <>To cancel</>}
           {!isEditing && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати файл
+              Add a file
             </>
           )}
         </Button>
@@ -74,7 +74,7 @@ export const AttachmentForm = ({
         <>
           {initialData.attachments.length === 0 && (
             <p className="text-sm mt-2 text-slate-500 italic">
-              Вложень поки немає
+              There is no facing yet
             </p>
           )}
           {initialData.attachments.length > 0 && (
@@ -116,7 +116,7 @@ export const AttachmentForm = ({
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            Додайте усе, що може знадобитись студентам для навчання
+            Add everything that students may need to study
           </div>
         </div>
       )}

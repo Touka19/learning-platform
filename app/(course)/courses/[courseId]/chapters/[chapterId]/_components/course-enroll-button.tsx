@@ -21,7 +21,7 @@ export const CourseEnrollButton = ({ courseId }: CourseEnrollButtonProps) => {
 
       window.location.assign(response.data.url);
     } catch {
-      toast.error("Упс! Щось пішло не так");
+      toast.error("Oops! Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -34,7 +34,7 @@ export const CourseEnrollButton = ({ courseId }: CourseEnrollButtonProps) => {
       size="sm"
       className="w-full md:w-auto"
     >
-      Записатись
+      To enroll
     </Button>
   );
 };

@@ -41,11 +41,11 @@ export const TestsForm = ({ test, switchToNextTest }: TestsFormProps) => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     const isChoiceCorrect = values.variants.toString() === answers.toString();
     if (isChoiceCorrect) {
-      toast.success("Ура! Відповідь правильна");
+      toast.success("Hooray! The answer is correct");
       switchToNextTest();
       form.reset();
     } else {
-      toast.error("Упс! Відповідь невірна");
+      toast.error("Oops! The answer is wrong");
     }
   }
 
@@ -84,7 +84,7 @@ export const TestsForm = ({ test, switchToNextTest }: TestsFormProps) => {
           ))}
           <div className="flex gap-x-4">
             <Button disabled={!isValid} type="submit">
-              Здати відповідь
+              To hand over
             </Button>
           </div>
         </form>

@@ -48,7 +48,7 @@ export async function POST(
       messages: [
         {
           role: "system",
-          content: `Твоє завдання консультувати студентів з онлайн-курсу "${courseTitle}" по розділу "${chapterTitle}" із наступним змістом "${chapterDescription}". Відповіді повинні бути чіткими та лаконічними.`,
+          content: `Your task is to advise students for the online course "${courseTitle}" under the section "${chapterTitle}" followed by "${chapterDescription}". The answers should be clear and laconic.`,
         },
         { role: "user", content: question },
       ],

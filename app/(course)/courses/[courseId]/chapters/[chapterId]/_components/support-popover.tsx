@@ -52,7 +52,7 @@ export const SupportPopover = ({
       );
       setAnswer(response.data?.answer);
     } catch {
-      toast.error("Упс! Щось пішло не так");
+      toast.error("Oops! Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -81,7 +81,7 @@ export const SupportPopover = ({
           <div className="flex flex-row gap-4">
             <Input
               onChange={(e) => setQuestion(e.target.value)}
-              placeholder="Задайте будь-яке питання по розділу"
+              placeholder="Ask any question on the section"
             />
             <Button
               disabled={isLoading || !question.length}

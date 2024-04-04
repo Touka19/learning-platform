@@ -48,10 +48,10 @@ export const CourseProgressButton = ({
         router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
       }
 
-      toast.success("Прогрес курсу оновлено");
+      toast.success("The progress of the course has been updated");
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +68,7 @@ export const CourseProgressButton = ({
       className="w-full md:w-auto"
     >
       <Icon className="h-5 w-5 mr-2" />
-      {isCompleted ? "Позначити як не завершений" : "Позначити як завершений"}
+      {isCompleted ? "Denote as not completed" : "Mark as completed"}
     </Button>
   );
 };

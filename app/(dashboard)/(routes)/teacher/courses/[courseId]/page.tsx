@@ -74,14 +74,14 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
   return (
     <>
       {!course.isPublished && (
-        <Banner label="Курс не опубліковано. Він не буде видимим для студентів." />
+        <Banner label="The course is not published. It will not be visible to students." />
       )}
       <div className="p-6">
         <div className="flex items-center justify-between">
           <div className="flex flex-col gap-y-2">
-            <h1 className="text-2xl font-medium">Налаштування курсу</h1>
+            <h1 className="text-2xl font-medium">Setting up the course</h1>
             <span className="text-sm text-slate-700">
-              Заповніть усі поля {completionText}
+              Complete all fields {completionText}
             </span>
           </div>
           <Actions
@@ -94,7 +94,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
           <div>
             <div className="flex items-center gap-x-2">
               <LayoutDashboard />
-              <h2 className="text-xl">Загальні налаштування</h2>
+              <h2 className="text-xl">General settings</h2>
             </div>
             <TitleForm initialData={course} courseId={course.id} />
             <DescriptionForm initialData={course} courseId={course.id} />
@@ -112,21 +112,21 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <div>
               <div className="flex items-center gap-x-2">
                 <List />
-                <h2 className="text-xl">Розділи курсу</h2>
+                <h2 className="text-xl">THE Tsurs Sesthion</h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
                 <Paperclip />
-                <h2 className="text-xl">Додаткові матеріали</h2>
+                <h2 className="text-xl">Additional materials</h2>
               </div>
               <AttachmentForm initialData={course} courseId={course.id} />
             </div>
             <div>
               <div className="flex items-center gap-x-2">
                 <ListTodo />
-                <h2 className="text-xl">Тестування</h2>
+                <h2 className="text-xl">Testing</h2>
               </div>
               <TestsForm initialData={course} courseId={course.id} />
             </div>

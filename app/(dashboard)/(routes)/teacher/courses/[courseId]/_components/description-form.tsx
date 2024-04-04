@@ -28,7 +28,7 @@ interface DescriptionFormProps {
 
 const formSchema = z.object({
   description: z.string().min(1, {
-    message: "Опис є обов'язковим полем",
+    message: "The description is a compulsory field",
   }),
 });
 
@@ -54,25 +54,25 @@ export const DescriptionForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Курс оновлено");
+      toast.success("The course has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Халепа! Щось пішло не так");
+      toast.error("Trouble! Something went wrong");
     }
   }
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Опис курсу
+        Description of the course
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Відмінити</>
+            <>To cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Змінити опис
+              Change the description
             </>
           )}
         </Button>
@@ -82,7 +82,7 @@ export const DescriptionForm = ({
           "text-sm mt-2",
           !initialData.description && "text-slate-500 italic"
         )}>
-          {initialData.description || "Немає опису"}
+          {initialData.description || "No description"}
         </p>
       )}
       {isEditing && (
@@ -99,7 +99,7 @@ export const DescriptionForm = ({
                   <FormControl>
                     <Textarea
                       disabled={isSubmitting}
-                      placeholder="приклад: 'В цьому курсі я навчу вас...'"
+                      placeholder="Example: 'In this course I will teach you ...'"
                       {...field}
                     />
                   </FormControl>
@@ -112,7 +112,7 @@ export const DescriptionForm = ({
                 disabled={!isValid || isSubmitting}
                 type="submit"
               >
-                Зберегти
+                Save
               </Button>
             </div>
           </form>

@@ -37,9 +37,9 @@ export const TestsDialog = ({
     <Dialog open={isOpen}>
       <DialogContent className="z-[100]">
         <DialogHeader>
-          <DialogTitle>Завдання для самоперевірки</DialogTitle>
+          <DialogTitle>Self -test task</DialogTitle>
           <DialogDescription>
-            Пройдіть усі тести ({currentTest + 1}/{tests.length})
+            Go through all tests ({currentTest + 1}/{tests.length})
           </DialogDescription>
         </DialogHeader>
         <div className="pb-3">

@@ -52,25 +52,25 @@ export const ChapterTitleForm = ({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, values);
-      toast.success("Розділ оновлено");
+      toast.success("The section has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     }
   }
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Назва розділу
+        The name of the section
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Відмінити</>
+            <>To cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Змінити назву
+              Change the title
             </>
           )}
         </Button>
@@ -94,7 +94,7 @@ export const ChapterTitleForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Інтро"
+                      placeholder="Example: Intro"
                       {...field}
                     />
                   </FormControl>
@@ -107,7 +107,7 @@ export const ChapterTitleForm = ({
                 disabled={!isValid || isSubmitting}
                 type="submit"
               >
-                Зберегти
+                Save
               </Button>
             </div>
           </form>

@@ -36,7 +36,7 @@ export const CourseCard = ({
             <div className="flex items-center gap-x-1 text-slate-500">
               <Bookmark className="h-4 w-4" />
               <span>
-                {chaptersLength} {chaptersLength === 1 ? "Розділ" : "Розділів"}
+                {chaptersLength} {chaptersLength === 1 ? "Section" : "Sections"}
               </span>
             </div>
           </div>

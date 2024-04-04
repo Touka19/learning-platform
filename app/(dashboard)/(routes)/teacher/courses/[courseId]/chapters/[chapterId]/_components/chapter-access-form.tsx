@@ -60,25 +60,25 @@ export const ChapterAccessForm = ({
         `/api/courses/${courseId}/chapters/${chapterId}`,
         values
       );
-      toast.success("Розділ оновлено");
+      toast.success("The section has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Щось пішло не так");
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Доступ розділу
+        Section access
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing ? (
-            <>Відмінити</>
+            <>To cancel</>
           ) : (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Змінити доступ
+              Change access
             </>
           )}
         </Button>
@@ -91,9 +91,9 @@ export const ChapterAccessForm = ({
           )}
         >
           {initialData.isFree ? (
-            <>Цей розділ ввідний</>
+            <>This section is introduced</>
           ) : (
-            <>Цей розділ не ввідний</>
+            <>This section is not introductory</>
           )}
         </p>
       )}
@@ -116,7 +116,7 @@ export const ChapterAccessForm = ({
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormDescription>
-                      Позначте, якщо бажаєте зробити цей розділ ввідним
+                      Mark if you want to make this section Free
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -124,7 +124,7 @@ export const ChapterAccessForm = ({
             />
             <div className="flex items-center gap-x-2">
               <Button disabled={!isValid || isSubmitting} type="submit">
-                Зберегти
+                Save
               </Button>
             </div>
           </form>

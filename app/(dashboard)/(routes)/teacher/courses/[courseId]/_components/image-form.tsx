@@ -19,7 +19,7 @@ interface ImageFormProps {
 
 const formSchema = z.object({
   imageUrl: z.string().min(1, {
-    message: "Зображення є обов'язковим",
+    message: "The image is required",
   }),
 });
 
@@ -33,30 +33,30 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       await axios.patch(`/api/courses/${courseId}`, values);
-      toast.success("Курс оновлено");
+      toast.success("The course has been updated");
       toggleEdit();
       router.refresh();
     } catch {
-      toast.error("Ох!😅 Щось пішло не за планом");
+      toast.error("Oh! 😅 Something went out of plan");
     }
   };
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Зображення курсу
+        Image of the course
         <Button onClick={toggleEdit} variant="ghost">
           {isEditing && <>Відмінити</>}
           {!isEditing && !initialData.imageUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати зображення
+              Add an image
             </>
           )}
           {!isEditing && initialData.imageUrl && (
             <>
               <Pencil className="h-4 w-4 mr-2" />
-              Змінити зображення
+              Change the image
             </>
           )}
         </Button>
@@ -87,7 +87,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
             }}
           />
           <div className="text-xs text-muted-foreground mt-4">
-            Рекомендоване співвідношення сторін зображення - 16:9
+            Recommended Size of Image - 16: 9
           </div>
         </div>
       )}

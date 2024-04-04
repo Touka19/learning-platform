@@ -66,11 +66,11 @@ export const VariantsForm = ({
         `/api/courses/${courseId}/tests/${testId}/variants`,
         values
       );
-      toast.success("Відповідь створено");
+      toast.success("The answer is created");
       toggleCreating();
       router.refresh();
     } catch {
-      toast.error("Халепа! Щось пішло не так");
+      toast.error("Trouble! Something went wrong");
     }
   };
 

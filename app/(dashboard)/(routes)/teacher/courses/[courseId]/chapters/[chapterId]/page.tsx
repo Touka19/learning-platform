@@ -51,7 +51,7 @@ const ChapterIdPage = async ({
       {!chapter.isPublished && (
         <Banner
           variant="warning"
-          label="Цей розділ не опублікований. Його не буде в курсі"
+          label="This section is not published. Its will not be aware"
         />
       )}
       <div className="p-6">
@@ -62,13 +62,13 @@ const ChapterIdPage = async ({
               className="flex items-center text-sm hover:opacity-75 transition mb-6"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Назад до налаштувань курсу
+              Back to the course settings
             </Link>
             <div className="flex items-center justify-between w-full">
               <div className="flex flex-col gap-y-2">
-                <h1 className="text-2xl font-medium">Створення Розділу</h1>
+                <h1 className="text-2xl font-medium">Creating a section</h1>
                 <span className="text-sm text-slate-700">
-                  Заповніть усі поля {completionText}
+                  Complete all fields {completionText}
                 </span>
               </div>
               <ChapterActions
@@ -85,7 +85,7 @@ const ChapterIdPage = async ({
             <div>
               <div className="flex items-center gap-x-2">
                 <LayoutDashboard />
-                <h2 className="text-xl">Загальні налаштування</h2>
+                <h2 className="text-xl">General settings</h2>
               </div>
               <ChapterTitleForm
                 initialData={chapter}
@@ -101,7 +101,7 @@ const ChapterIdPage = async ({
             <div>
               <div className="flex items-center gap-x-2">
                 <Eye />
-                <h2 className="text-xl">Налаштування доступу</h2>
+                <h2 className="text-xl">Setting up access</h2>
               </div>
               <ChapterAccessForm
                 initialData={chapter}
@@ -113,7 +113,7 @@ const ChapterIdPage = async ({
           <div>
             <div className="flex items-center gap-x-2">
               <Video />
-              <h2 className="text-xl">Відео</h2>
+              <h2 className="text-xl">Video</h2>
             </div>
             <ChapterVideoForm
               initialData={chapter}
