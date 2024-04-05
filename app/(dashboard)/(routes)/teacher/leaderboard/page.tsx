@@ -27,16 +27,42 @@ const LeaderboardPage = async () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">Leaderboard</h1>
-      <ul>
-        {leaderboardData.map((entry, index) => (
-          <li key={index}>
-            User ID: {entry.userId}, 
-            Completed Chapters: {entry.total_completed_chapters}, 
-            Total Chapters: {entry.total_chapters_in_courses}, 
-            Courses Completed: {entry.course_completed}
-          </li>
-        ))}
-      </ul>
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              User ID
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Completed Chapters
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Total Chapters
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Courses Completed
+            </th>
+          </tr>
+        </thead>
+        <tbody className="bg-white divide-y divide-gray-200">
+          {leaderboardData.map((entry, index) => (
+            <tr key={index}>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {entry.userId}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {entry.total_completed_chapters}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {entry.total_chapters_in_courses}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap">
+                {entry.course_completed}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -11,7 +11,7 @@ export interface LeaderboardEntry {
 
 export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
   try {
-    const leaderboardData: LeaderboardEntry[] = await db.$queryRaw`
+    const leaderboardData: any[] = await db.$queryRaw`
       SELECT 
         subquery.userId,
         SUM(subquery.total_completed_chapters) AS total_completed_chapters,
@@ -36,7 +36,15 @@ export const getLeaderboard = async (): Promise<LeaderboardEntry[]> => {
         subquery.userId;
     `;
 
-    return leaderboardData;
+    // Convert Decimal objects to plain JavaScript objects
+    const formattedData: LeaderboardEntry[] = leaderboardData.map(entry => ({
+      userId: entry.userId,
+      total_completed_chapters: Number(entry.total_completed_chapters),
+      total_chapters_in_courses: Number(entry.total_chapters_in_courses),
+      course_completed: Number(entry.course_completed)
+    }));
+
+    return formattedData;
   } catch (error) {
     console.error("[GET_LEADERBOARD]", error);
     return [];
