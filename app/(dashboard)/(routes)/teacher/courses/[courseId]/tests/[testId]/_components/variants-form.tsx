@@ -82,10 +82,10 @@ export const VariantsForm = ({
         `/api/courses/${courseId}/tests/${testId}/variants/${variantId}`
       );
 
-      toast.success("Відповідь видалено");
+      toast.success("Reply deleted");
       router.refresh();
     } catch {
-      toast.error("Ой! Щось пішло не так");
+      toast.error("Oh! Something went wrong");
     } finally {
       setIsUpdating(false);
     }
@@ -99,14 +99,14 @@ export const VariantsForm = ({
         </div>
       )}
       <div className="font-medium flex items-center justify-between">
-        Відповіді на питання
+        Answers to questions
         <Button onClick={toggleCreating} variant="ghost">
           {isCreating ? (
-            <>Відмінити</>
+            <>Cancel</>
           ) : (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
-              Додати відповідь
+              Add an answer
             </>
           )}
         </Button>
@@ -125,7 +125,7 @@ export const VariantsForm = ({
                   <FormControl>
                     <Input
                       disabled={isSubmitting}
-                      placeholder="Приклад: Javascript"
+                      placeholder="Example: Javascript"
                       {...field}
                     />
                   </FormControl>
@@ -146,8 +146,8 @@ export const VariantsForm = ({
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormDescription>
-                      Встановіть галочку якщо бажаєте зробити цю відповідь
-                      правильною
+                      Check the box if you want to do this answer
+                      correct
                     </FormDescription>
                   </div>
                 </FormItem>
@@ -166,7 +166,7 @@ export const VariantsForm = ({
             !variants.length && "text-slate-500 italic"
           )}
         >
-          {!variants.length && "Відповідей немає"}
+          {!variants.length && "There are no answers"}
           <VariantsList onDelete={onDelete} items={variants || []} />
         </div>
       )}
