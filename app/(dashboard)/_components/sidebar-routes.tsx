@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Library, List } from "lucide-react";
+import { BookOpen, Library, List, Trophy} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
@@ -23,6 +23,11 @@ const teacherRoutes = [
     icon: List,
     label: "Courses",
     href: "/teacher/courses",
+  },
+  {
+    icon: Trophy,
+    label: "Leaderboard",
+    href: "/teacher/leaderboard"
   },
 ];
 
