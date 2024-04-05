@@ -10,7 +10,7 @@ const LeaderboardPage = async () => {
   }
 
   let leaderboardData: LeaderboardEntry[] = [];
-  let userList = [];
+  let userList: any[] = [];
 
   try {
     leaderboardData = await getLeaderboard();
