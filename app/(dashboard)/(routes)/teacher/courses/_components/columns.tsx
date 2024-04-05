@@ -18,7 +18,7 @@ export const columns: ColumnDef<Course>[] = [
           variant="link"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Назва
+          Name
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -32,7 +32,7 @@ export const columns: ColumnDef<Course>[] = [
           variant="link"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Статус
+          Status
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
