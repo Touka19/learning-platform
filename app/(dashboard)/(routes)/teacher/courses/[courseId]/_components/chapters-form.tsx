@@ -137,7 +137,7 @@ export const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
             !initialData.chapters.length && "text-slate-500 italic"
           )}
         >
-          {!initialData.chapters.length && "Розділів немає"}
+          {!initialData.chapters.length && "There are no sections"}
           <ChaptersList
             onEdit={onEdit}
             onReorder={onReorder}
