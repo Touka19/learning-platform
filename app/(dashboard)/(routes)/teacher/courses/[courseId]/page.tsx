@@ -112,7 +112,7 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             <div>
               <div className="flex items-center gap-x-2">
                 <List />
-                <h2 className="text-xl">THE Tsurs Sesthion</h2>
+                <h2 className="text-xl">General settings</h2>
               </div>
               <ChaptersForm initialData={course} courseId={course.id} />
             </div>
