@@ -1,5 +1,4 @@
-// page.tsx
-import { auth } from "@clerk/nextjs";
+import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { LeaderboardEntry, getLeaderboard } from "@/actions/get-leaderboard";
 
@@ -11,9 +10,11 @@ const LeaderboardPage = async () => {
   }
 
   let leaderboardData: LeaderboardEntry[] = [];
+  let userList = [];
 
   try {
     leaderboardData = await getLeaderboard();
+    userList = await clerkClient.users.getUserList();
     // Check if leaderboardData is not an array
     if (!Array.isArray(leaderboardData)) {
       throw new Error("Leaderboard data is not an array.");
@@ -31,7 +32,7 @@ const LeaderboardPage = async () => {
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              User ID
+              User Name
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Completed Chapters
@@ -45,26 +46,31 @@ const LeaderboardPage = async () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {leaderboardData.map((entry, index) => (
-            <tr key={index}>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {entry.userId}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {entry.total_completed_chapters}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {entry.total_chapters_in_courses}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {entry.course_completed}
-              </td>
-            </tr>
-          ))}
+          {leaderboardData.map((entry, index) => {
+            // Find corresponding user data
+            const user = userList.find(user => user.id === entry.userId);
+            const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
+            return (
+              <tr key={index}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {userName}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {entry.total_completed_chapters}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {entry.total_chapters_in_courses}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {entry.course_completed}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
   );
 };
- 
+
 export default LeaderboardPage;
