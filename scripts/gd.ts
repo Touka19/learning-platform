@@ -50,7 +50,7 @@ async function fetchAndSaveVideos() {
       }
   
       // Save all videos in the database
-      await database.gdvideo.createMany({
+      await database.GDVideo.createMany({
         data: videosToCreate,
       });
   

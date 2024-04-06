@@ -1,13 +1,7 @@
-import Mux from "@mux/mux-node";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
-
-const { Video } = new Mux(
-  process.env.MUX_TOKEN_ID!,
-  process.env.MUX_TOKEN_SECRET!,
-);
 
 export async function DELETE(
   req: Request,
@@ -40,23 +34,6 @@ export async function DELETE(
 
     if (!chapter) {
       return new NextResponse("Not Found", { status: 404 });
-    }
-
-    if (chapter.videoUrl) {
-      const existingMuxData = await db.muxData.findFirst({
-        where: {
-          chapterId: params.chapterId,
-        }
-      });
-
-      if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
-        await db.muxData.delete({
-          where: {
-            id: existingMuxData.id,
-          }
-        });
-      }
     }
 
     const deletedChapter = await db.chapter.delete({
@@ -96,7 +73,7 @@ export async function PATCH(
 ) {
   try {
     const { userId } = auth();
-    const { isPublished, ...values } = await req.json();
+    const { isPublished, videoUrl, ...values } = await req.json();
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -120,36 +97,18 @@ export async function PATCH(
       },
       data: {
         ...values,
+        videoUrl: videoUrl || null, // Ensure videoUrl is saved
       }
     });
 
-    if (values.videoUrl) {
-      const existingMuxData = await db.muxData.findFirst({
+    if (videoUrl) {
+      // Save the video URL directly to the chapter
+      await db.chapter.update({
         where: {
-          chapterId: params.chapterId,
-        }
-      });
-
-      if (existingMuxData) {
-        await Video.Assets.del(existingMuxData.assetId);
-        await db.muxData.delete({
-          where: {
-            id: existingMuxData.id,
-          }
-        });
-      }
-
-      const asset = await Video.Assets.create({
-        input: values.videoUrl,
-        playback_policy: "public",
-        test: false,
-      });
-
-      await db.muxData.create({
+          id: params.chapterId
+        },
         data: {
-          chapterId: params.chapterId,
-          assetId: asset.id,
-          playbackId: asset.playback_ids?.[0]?.id,
+          videoUrl: videoUrl
         }
       });
     }
