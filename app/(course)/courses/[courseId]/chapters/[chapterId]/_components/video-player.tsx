@@ -58,7 +58,7 @@ export const VideoPlayer = ({
         }
       }
     } catch {
-      toast.error("Trouble! Something went wrongrongrong");
+      toast.error("Trouble! Something went wrong");
     }
   };
 

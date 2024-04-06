@@ -1,6 +1,6 @@
 "use client";
 
-import { BookOpen, Library, List, Trophy} from "lucide-react";
+import { BookOpen, Library, List, Trophy, Video} from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { SidebarItem } from "./sidebar-item";
@@ -28,6 +28,11 @@ const teacherRoutes = [
     icon: Trophy,
     label: "Leaderboard",
     href: "/teacher/leaderboard"
+  },
+  {
+    icon: Video,
+    label: "video",
+    href: "/teacher/leaderboard/testvideo"
   },
 ];
 
