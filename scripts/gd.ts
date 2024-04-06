@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require("@prisma/client");
 
 const database = new PrismaClient();
 
@@ -50,7 +50,7 @@ async function fetchAndSaveVideos() {
       }
   
       // Save all videos in the database
-      await database.video.createMany({
+      await database.gdvideo.createMany({
         data: videosToCreate,
       });
   

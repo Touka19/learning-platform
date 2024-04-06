@@ -142,7 +142,7 @@ model Variant {
 }
 
 // Define the Video model
-model Video {
+model GDVideo {
   id            String   @id @default(uuid()) // Assuming the API response ID is unique
   name          String
   folderId      String
