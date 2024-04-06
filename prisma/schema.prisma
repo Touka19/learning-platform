@@ -140,3 +140,10 @@ model Variant {
 
   @@index([testId])
 }
+
+// Define the Video model
+model Video {
+  id            String   @id @default(uuid()) // Assuming the API response ID is unique
+  name          String
+  folderId      String
+}
