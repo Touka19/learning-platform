@@ -71,24 +71,27 @@ export const ChapterVideoForm = ({
 
   const onSubmit = async () => {
     try {
-      if(selectedVideoId){
+      if (selectedVideoId) {
+        const response = await axios.get(`https://gdapi.viatg.workers.dev/generate.aspx?id=${selectedVideoId}`);
+        const newselectedVideoId = response.data.link;
+        
         await axios.patch(
           `/api/courses/${courseId}/chapters/${chapterId}`,
-          { videoUrl: selectedVideoId }
+          { videoUrl: newselectedVideoId }
         );
+        
         toast.success("The section has been updated");
         toggleEdit();
         router.refresh();
-      setSelectedVideoId('')
-
-    }
-      else{
+        setSelectedVideoId('');
+      } else {
         toast.error("Please select a video");
       }
-    } catch {
+    } catch (error) {
+      console.error("Error occurred:", error);
       toast.error("Oh! Something went wrong");
     }
-  };
+  };  
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
