@@ -154,7 +154,7 @@ export const VariantsForm = ({
               )}
             />
             <Button disabled={!isValid || isSubmitting} type="submit">
-              Зберегти
+              Save
             </Button>
           </form>
         </Form>

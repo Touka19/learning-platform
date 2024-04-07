@@ -106,7 +106,8 @@ export const ChapterVideoForm = ({
         <div>
           {initialData.videoUrl ? (
             <div className="relative aspect-video mt-2">
-              <SingleVideoPlayer videoUrl={initialData.videoUrl} />
+              <SingleVideoPlayer videoUrl={initialData.videoUrl}
+              onEnded={"x"}/>
             </div>
           ) : (
             <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">

@@ -2,7 +2,7 @@ import React from 'react';
 import Plyr from 'plyr-react';
 import 'plyr-react/plyr.css';
 
-export default function SingleVideoPlayer({ videoUrl }) {
+export default function SingleVideoPlayer({ videoUrl, onEnded:x}) {
   return (
     <div>
       <Plyr
@@ -10,6 +10,7 @@ export default function SingleVideoPlayer({ videoUrl }) {
           type: 'video',
           sources: [{ src: videoUrl }],
         }}
+        onEnded={onEnded}
       />
     </div>
   );
