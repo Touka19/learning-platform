@@ -141,9 +141,17 @@ model Variant {
   @@index([testId])
 }
 
-// Define the Video model
+// Define the FolderId model
+model FolderId {
+  id     String   @id @default(uuid())
+  name   String?
+  videos GDVideo[] // Define the opposite relation
+}
+
+// Define the GDVideo model
 model GDVideo {
-  id            String   @id @default(uuid()) // Assuming the API response ID is unique
-  name          String
-  folderId      String
+  id        String   @id @default(uuid())
+  name      String?
+  folderId  String?
+  folder    FolderId? @relation(fields: [folderId], references: [id])
 }
