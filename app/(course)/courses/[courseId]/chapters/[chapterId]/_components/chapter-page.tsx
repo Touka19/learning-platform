@@ -8,6 +8,8 @@ import { CourseProgressButton } from "./course-progress-button";
 import { VideoPlayer } from "./video-player";
 import { Preview } from "@/components/preview";
 import { TestsDialog } from "./tests-dialog";
+import SingleVideoPlayer from "./VideoPlayer";
+
 import {
   Attachment,
   Chapter,
@@ -60,7 +62,7 @@ export const ChapterPage = ({
   return (
     <div className="flex flex-col max-w-4xl mx-auto pb-20">
       <div className="p-4">
-        <VideoPlayer
+        {/* <VideoPlayer
           chapterId={chapterId}
           title={chapter.title}
           courseId={courseId}
@@ -69,7 +71,8 @@ export const ChapterPage = ({
           isLocked={isLocked}
           completeOnEnd={completeOnEnd}
           showTests={showTests}
-        />
+        /> */}
+        <SingleVideoPlayer videoUrl={chapter.videoUrl} />
       </div>
       <div>
         <div className="p-4 flex flex-col md:flex-row items-center justify-between">
