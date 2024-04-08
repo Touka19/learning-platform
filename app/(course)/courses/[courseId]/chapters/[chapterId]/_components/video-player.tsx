@@ -1,7 +1,6 @@
 "use client";
 
 import axios from "axios";
-import MuxPlayer from "@mux/mux-player-react";
 import Plyr from 'plyr-react';
 import 'plyr-react/plyr.css';
 import { useState } from "react";
@@ -9,7 +8,6 @@ import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 
 interface VideoPlayerProps {
@@ -80,23 +78,17 @@ export const VideoPlayer = ({
       {!isLocked && (
         <>
           <Plyr
-        source={{
-          type: 'video',
-          sources: [{ src: playbackId }],
-        }}
-        onEnded={onEnd}
-      />
-          {/* <SingleVideoPlayer
-            videoUrl={playbackId}
-            onEnded={onEnd} /> */}
-          {/* <MuxPlayer
-            title={title}
-            className={cn(!isReady && "hidden")}
-            onCanPlay={() => setIsReady(true)}
-            onEnded={onEnd}
-            autoPlay
-            playbackId={playbackId}
-          /> */}
+          source={{
+            title: title,
+            type: 'video',
+            sources: [{ src: playbackId }],
+          }}
+          options={{
+            listeners: {
+              ended: onEnd,
+            },
+          }}
+        />
         </>
       )}
     </div>
