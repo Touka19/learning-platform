@@ -34,7 +34,7 @@ export const ChapterActions = ({
         toast.success("The section is deactivated");
       } else {
         await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}/publish`);
-        toast.success("THE SCESTION IP POPULATS");
+        toast.success("The section is activated");
       }
 
       router.refresh();

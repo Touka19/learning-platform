@@ -28,7 +28,7 @@ export const ConfirmModal = ({
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Ви впевнені?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
           <AlertDialogDescription>
             This action cannot be canceled in the future.
           </AlertDialogDescription>

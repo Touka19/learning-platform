@@ -46,7 +46,7 @@ export const ImageForm = ({ initialData, courseId }: ImageFormProps) => {
       <div className="font-medium flex items-center justify-between">
         Image of the course
         <Button onClick={toggleEdit} variant="ghost">
-          {isEditing && <>Відмінити</>}
+          {isEditing && <>To cancel</>}
           {!isEditing && !initialData.imageUrl && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />

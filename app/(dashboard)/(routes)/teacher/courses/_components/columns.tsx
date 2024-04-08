@@ -40,7 +40,13 @@ export const columns: ColumnDef<Course>[] = [
     cell: ({ row }) => {
       const isPublished = row.getValue("isPublished") || false;
 
-      return <Badge>{isPublished ? "Posted" : "Pending"}</Badge>;
+      return (
+        <Badge
+          className={isPublished ? "bg-green-700" : ""}
+        >
+          {isPublished ? "Posted" : "Pending"}
+        </Badge>
+      );      
     },
   },
   {
