@@ -29,6 +29,11 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request, res: NextResponse) {
   try {
+    const { userId } = auth();
+
+    if (!userId || !isTeacher(userId)) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
     const folderId = new URL(req.url).searchParams.get('folderId')
 
     if (!folderId) {
