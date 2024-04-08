@@ -1,5 +1,3 @@
-"use client";
-
 import axios from "axios";
 import Plyr from 'plyr-react';
 import 'plyr-react/plyr.css';
@@ -7,7 +5,6 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
-
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 
 interface VideoPlayerProps {
@@ -40,9 +37,7 @@ export const VideoPlayer = ({
       if (completeOnEnd) {
         await axios.put(
           `/api/courses/${courseId}/chapters/${chapterId}/progress`,
-          {
-            isCompleted: true,
-          }
+          { isCompleted: true }
         );
 
         if (!nextChapterId) {
@@ -57,7 +52,8 @@ export const VideoPlayer = ({
           router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
         }
       }
-    } catch {
+    } catch (error) {
+      console.error("Error handling video end:", error);
       toast.error("Trouble! Something went wrong");
     }
   };
@@ -78,17 +74,17 @@ export const VideoPlayer = ({
       {!isLocked && (
         <>
           <Plyr
-          source={{
-            title: title,
-            type: 'video',
-            sources: [{ src: playbackId }],
-          }}
-          options={{
-            listeners: {
-              ended: onEnd,
-            },
-          }}
-        />
+            source={{
+              title: title,
+              type: 'video',
+              sources: [{ src: playbackId }],
+            }}
+            options={{
+              listeners: {
+                ended: onEnd,
+              },
+            }}
+          />
         </>
       )}
     </div>
