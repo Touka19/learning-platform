@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 import { Chapter } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import { Video } from "lucide-react";
-import SingleVideoPlayer from "@/app/(course)/courses/[courseId]/chapters/[chapterId]/_components/VideoPlayer";
+import Plyr from 'plyr-react';
+import 'plyr-react/plyr.css';
 
 interface ChapterVideoFormProps {
   initialData: Chapter;
@@ -106,8 +107,7 @@ export const ChapterVideoForm = ({
         <div>
           {initialData.videoUrl ? (
             <div className="relative aspect-video mt-2">
-              <SingleVideoPlayer videoUrl={initialData.videoUrl}
-              onEnded={"x"}/>
+              <Plyr source={{ type: 'video', sources: [{ src: initialData.videoUrl }]}}/>
             </div>
           ) : (
             <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
