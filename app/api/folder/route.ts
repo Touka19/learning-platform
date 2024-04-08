@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 
 import { db } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: any, res: NextResponse) {
   try {
     const folders: any[] = await db.folderId.findMany()
