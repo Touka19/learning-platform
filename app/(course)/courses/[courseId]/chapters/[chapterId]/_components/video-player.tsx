@@ -1,7 +1,7 @@
 import axios from "axios";
 import Plyr from 'plyr-react';
 import 'plyr-react/plyr.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock } from "lucide-react";
@@ -32,31 +32,42 @@ export const VideoPlayer = ({
   const router = useRouter();
   const confetti = useConfettiStore();
 
-  const onEnd = async () => {
-    try {
-      if (completeOnEnd) {
-        await axios.put(
-          `/api/courses/${courseId}/chapters/${chapterId}/progress`,
-          { isCompleted: true }
-        );
+  useEffect(() => {
+    const handleEnded = async () => {
+      try {
+        if (completeOnEnd) {
+          await axios.put(
+            `/api/courses/${courseId}/chapters/${chapterId}/progress`,
+            { isCompleted: true }
+          );
 
-        if (!nextChapterId) {
-          confetti.onOpen();
-          setTimeout(() => showTests(), 3000);
+          if (!nextChapterId) {
+            confetti.onOpen();
+            setTimeout(() => showTests(), 3000);
+          }
+
+          toast.success("The progress of the course has been updated");
+          router.refresh();
+
+          if (nextChapterId) {
+            router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+          }
         }
-
-        toast.success("The progress of the course has been updated");
-        router.refresh();
-
-        if (nextChapterId) {
-          router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
-        }
+      } catch (error) {
+        console.error("Error handling video end:", error);
+        toast.error("Trouble! Something went wrong");
       }
-    } catch (error) {
-      console.error("Error handling video end:", error);
-      toast.error("Trouble! Something went wrong");
+    };
+
+    const plyr = document.querySelector(".plyr");
+
+    if (plyr) {
+      plyr.addEventListener("ended", handleEnded);
+      return () => {
+        plyr.removeEventListener("ended", handleEnded);
+      };
     }
-  };
+  }, [completeOnEnd, courseId, chapterId, nextChapterId, confetti, router, showTests]);
 
   return (
     <div className="relative aspect-video mt-5">
@@ -72,20 +83,13 @@ export const VideoPlayer = ({
         </div>
       )}
       {!isLocked && (
-        <>
-          <Plyr
-            source={{
-              title: title,
-              type: 'video',
-              sources: [{ src: playbackId }],
-            }}
-            options={{
-              listeners: {
-                ended: onEnd,
-              },
-            }}
-          />
-        </>
+        <Plyr
+          source={{
+            title: title,
+            type: 'video',
+            sources: [{ src: playbackId }],
+          }}
+        />
       )}
     </div>
   );
