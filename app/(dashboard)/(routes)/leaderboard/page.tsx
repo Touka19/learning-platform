@@ -52,12 +52,7 @@ const LeaderboardPage = async () => {
   {leaderboardData.map((entry, index) => {
     // Find corresponding user data
     const user = userList.find(user => user.id === entry.userId);
-    // Check if user data is available
-    if (!user) {
-      return null; // Skip rendering if user data is not found
-    }
-    // Construct user's full name
-    const userName = `${user.firstName} ${user.lastName}`;
+    const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
     return (
       <tr key={index}>
         <td className="px-6 py-4 whitespace-nowrap">
