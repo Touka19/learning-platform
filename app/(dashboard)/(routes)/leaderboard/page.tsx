@@ -49,28 +49,33 @@ const LeaderboardPage = async () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {leaderboardData.map((entry, index) => {
-            // Find corresponding user data
-            const user = userList.find(user => user.id === entry.userId);
-            const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
-            return (
-              <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {userName}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {entry.total_completed_chapters}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {entry.total_chapters_in_courses}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {entry.course_completed}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+  {leaderboardData.map((entry, index) => {
+    // Find corresponding user data
+    const user = userList.find(user => user.id === entry.userId);
+    // Check if user data is available
+    if (!user) {
+      return null; // Skip rendering if user data is not found
+    }
+    // Construct user's full name
+    const userName = `${user.firstName} ${user.lastName}`;
+    return (
+      <tr key={index}>
+        <td className="px-6 py-4 whitespace-nowrap">
+          {userName}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          {entry.total_completed_chapters}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          {entry.total_chapters_in_courses}
+        </td>
+        <td className="px-6 py-4 whitespace-nowrap">
+          {entry.course_completed}
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
       </table>
     </div>
   );
