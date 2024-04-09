@@ -14,16 +14,18 @@ const LeaderboardPage = async () => {
 
   try {
     leaderboardData = await getLeaderboard();
-    userList = await clerkClient.users.getUserList();
-    // Check if leaderboardData is not an array
+    userList = await clerkClient.users.getUserList({ limit: 100 });
+
     if (!Array.isArray(leaderboardData)) {
       throw new Error("Leaderboard data is not an array.");
     }
   } catch (error) {
     console.error("Error fetching leaderboard data:", error);
-    // Provide a fallback value
     leaderboardData = [];
   }
+
+  // Filter user list based on user IDs present in the leaderboard data
+  const filteredUserList = userList.filter(user => leaderboardData.some(entry => entry.userId === user.id));
 
   // Sort leaderboardData based on total_completed_chapters
   leaderboardData.sort((a, b) => b.total_completed_chapters - a.total_completed_chapters);
@@ -49,28 +51,29 @@ const LeaderboardPage = async () => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-  {leaderboardData.map((entry, index) => {
-    // Find corresponding user data
-    const user = userList.find(user => user.id === entry.userId);
-    const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
-    return (
-      <tr key={index}>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {userName}
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {entry.total_completed_chapters}
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {entry.total_chapters_in_courses}
-        </td>
-        <td className="px-6 py-4 whitespace-nowrap">
-          {entry.course_completed}
-        </td>
-      </tr>
-    );
-  })}
-</tbody>
+          {leaderboardData.map((entry, index) => {
+            // Find corresponding user data
+            const user = filteredUserList.find(user => user.id === entry.userId);
+            if (!user) return null;
+            const userName = user ? `${user.firstName} ${user.lastName}` : "Unknown User";
+            return (
+              <tr key={index}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {userName}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {entry.total_completed_chapters}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {entry.total_chapters_in_courses}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {entry.course_completed}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );
