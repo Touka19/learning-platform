@@ -31,6 +31,21 @@ export const VideoPlayer = ({
   const [isReady, setIsReady] = useState(false);
   const router = useRouter();
   const confetti = useConfettiStore();
+  const [newPlaybackId, setNewPlaybackId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchNewPlaybackId = async () => {
+      try {
+        const response = await axios.get(`https://gdapi.viatg.workers.dev/generate.aspx?id=${playbackId}`);
+        const newPlaybackId = response.data.link;
+        setNewPlaybackId(newPlaybackId);
+      } catch (error) {
+        console.error("Error fetching new playbackId:", error);
+      }
+    };
+
+    fetchNewPlaybackId();
+  }, [playbackId]);
 
   useEffect(() => {
     const handleEnded = async () => {
@@ -82,12 +97,12 @@ export const VideoPlayer = ({
           <p className="text-sm">This section is not available</p>
         </div>
       )}
-      {!isLocked && (
+      {!isLocked && newPlaybackId && (
         <Plyr
           source={{
             title: title,
             type: 'video',
-            sources: [{ src: playbackId }],
+            sources: [{ src: newPlaybackId }],
           }}
         />
       )}

@@ -28,11 +28,10 @@ export const ChapterVideoForm = ({
   chapterId,
 }: ChapterVideoFormProps) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
   const [videoOptions, setVideoOptions] = useState<GDVideo[]>([]);
-  
   const [folders, setFolders] = useState<any[]>([]);
-  const [selectedVideoId, setSelectedVideoId] = useState<string>('');
-  
+  const [selectedVideoId, setSelectedVideoId] = useState<string>('');  
   const [selectedFolder, setSelectedFolder] = useState<string>('');
 
   const router = useRouter();
@@ -64,24 +63,35 @@ export const ChapterVideoForm = ({
   
   useEffect(() => {
     fetchAllFolders()
-  },[]
-  )
+  }, []);
 
+  useEffect(() => {
+    const fetchNewVideoUrl = async () => {
+      if (initialData.videoUrl) {
+        try {
+          const response = await axios.get(`https://gdapi.viatg.workers.dev/generate.aspx?id=${initialData.videoUrl}`);
+          const newVideoUrl = response.data.link;
+          setVideoUrl(newVideoUrl);
+        } catch (error) {
+          console.error("Error fetching new video URL:", error);
+        }
+      }
+    };
 
+    fetchNewVideoUrl();
+  }, [initialData.videoUrl]);
 
   const toggleEdit = () => setIsEditing((current) => !current);
 
   const onSubmit = async () => {
     try {
       if (selectedVideoId) {
-        const response = await axios.get(`https://gdapi.viatg.workers.dev/generate.aspx?id=${selectedVideoId}`);
-        const newselectedVideoId = response.data.link;
-        
+        // Save the selected video ID to the database
         await axios.patch(
           `/api/courses/${courseId}/chapters/${chapterId}`,
-          { videoUrl: newselectedVideoId }
+          { videoUrl: selectedVideoId }
         );
-        
+  
         toast.success("The section has been updated");
         toggleEdit();
         router.refresh();
@@ -93,7 +103,7 @@ export const ChapterVideoForm = ({
       console.error("Error occurred:", error);
       toast.error("Oh! Something went wrong");
     }
-  };  
+  };     
 
   return (
     <div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -105,9 +115,9 @@ export const ChapterVideoForm = ({
       </div>
       {!isEditing && (
         <div>
-          {initialData.videoUrl ? (
+          {videoUrl ? (
             <div className="relative aspect-video mt-2">
-              <Plyr source={{ type: 'video', sources: [{ src: initialData.videoUrl }]}}/>
+              <Plyr source={{ type: 'video', sources: [{ src: videoUrl }]}}/>
             </div>
           ) : (
             <div className="flex items-center justify-center h-60 bg-slate-200 rounded-md">
